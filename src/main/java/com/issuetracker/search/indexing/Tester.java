@@ -8,9 +8,10 @@ import com.issuetracker.search.indexing.annotations.Indexed;
  * @author jholusa
  * @since 4.0
  */
+@Indexed
 public class Tester {
 
-    @Indexed
+
     private String name;
     private int id;
 }

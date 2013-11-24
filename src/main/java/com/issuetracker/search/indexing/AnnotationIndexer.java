@@ -4,8 +4,12 @@ import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
 import com.issuetracker.search.indexing.processors.api.Processor;
+<<<<<<< HEAD
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
+=======
+import org.elasticsearch.common.xcontent.XContentBuilder;
+>>>>>>> 36dacd8... Basics of indexer
 
 
 import java.lang.annotation.Annotation;
