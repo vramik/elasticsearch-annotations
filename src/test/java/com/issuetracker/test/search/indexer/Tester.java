@@ -1,5 +1,6 @@
 package com.issuetracker.test.search.indexer;
 
+import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
 /**
@@ -8,9 +9,10 @@ import com.issuetracker.search.indexing.annotations.Indexed;
  * @author jholusa
  * @since 4.0
  */
+@Indexed
 public class Tester {
 
-    @Indexed
+    @Field
     private String name;
     private int id;
 }

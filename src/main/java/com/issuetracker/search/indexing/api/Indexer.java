@@ -1,7 +1,5 @@
 package com.issuetracker.search.indexing.api;
 
-import com.issuetracker.search.indexing.annotations.IndexedEntity;
-
 /**
  * // TODO: Document this
  *

@@ -14,16 +14,21 @@ import java.lang.reflect.Field;
  * Time: 21:07
  * To change this template use File | Settings | File Templates.
  */
-public class IndexedAnnotationProcessor implements Processor {
+public class FieldAnnotationProcessor implements Processor {
 
     private XContentBuilder builder;
 
-    public IndexedAnnotationProcessor(XContentBuilder builder) {
+    public FieldAnnotationProcessor(XContentBuilder builder) {
         this.builder = builder;
     }
 
     @Override
     public void process(Field field, Annotation annotation, Object entity) {
+        if(builder == null) {
+            //TODO: customize this exception text
+            throw new IllegalStateException();
+        }
+
         String value = null;
         field.setAccessible(true);
         try {

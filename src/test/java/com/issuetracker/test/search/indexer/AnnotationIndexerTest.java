@@ -2,8 +2,6 @@ package com.issuetracker.test.search.indexer;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
 import com.issuetracker.search.indexing.Tester;
-import com.issuetracker.search.indexing.annotations.Indexed;
-import com.issuetracker.search.indexing.annotations.IndexedEntity;
 import com.issuetracker.search.indexing.api.Indexer;
 import org.junit.Test;
 

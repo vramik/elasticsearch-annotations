@@ -1,11 +1,17 @@
 package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.annotations.Indexed;
-import com.issuetracker.search.indexing.annotations.IndexedEntity;
 import com.issuetracker.search.indexing.api.Indexer;
+import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
+import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
+import com.issuetracker.search.indexing.processors.api.Processor;
+import static org.elasticsearch.common.xcontent.XContentFactory.*;
+
+
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -16,24 +22,23 @@ import java.lang.reflect.Field;
  */
 public class AnnotationIndexer implements Indexer {
 
+    private XContentBuilder builder;// = jsonBuilder();
+
     @Override
     public void index(Object entity) {
+        // TODO: check if entity is annotated with @Indexed
+
+        Dispatcher dispatcher = new AnnotationDispatcher(builder);
+
         for(Field field: entity.getClass().getDeclaredFields()) {
-
             for(Annotation annotation: field.getDeclaredAnnotations()) {
-                proceedAnnotation(field, annotation.annotationType());
+                Processor processor = dispatcher.dispatch(annotation);
+
+                if(processor != null) {
+                    processor.process(field, annotation, entity);
+                }
             }
-
         }
-
-    }
-
-    private void proceedAnnotation(Field field, Class<? extends Indexed> annotation) {
-        System.out.println("Indexed");
-    }
-
-    private void proceedAnnotation(Field field, Annotation annotation) {
-        System.out.println("Annotation");
     }
 
 }
