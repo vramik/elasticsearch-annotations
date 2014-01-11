@@ -7,15 +7,16 @@ import com.issuetracker.search.indexing.processors.api.Processor;
 <<<<<<< HEAD
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
+<<<<<<< HEAD
 =======
 import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 36dacd8... Basics of indexer
 
 
+=======
+>>>>>>> 9b235ba... Basic functionality of @Field indexation
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -30,6 +31,10 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity) {
+        indexEntity(entity);
+    }
+
+    private void indexEntity(Object entity) {
         // TODO: check if entity is annotated with @Indexed
 
         Dispatcher dispatcher = new AnnotationDispatcher(builder);
@@ -45,4 +50,11 @@ public class AnnotationIndexer implements Indexer {
         }
     }
 
+    public XContentBuilder getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(XContentBuilder builder) {
+        this.builder = builder;
+    }
 }

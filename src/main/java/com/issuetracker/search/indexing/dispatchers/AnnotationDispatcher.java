@@ -1,5 +1,6 @@
 package com.issuetracker.search.indexing.dispatchers;
 
+import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.Indexed;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
 import com.issuetracker.search.indexing.processors.FieldAnnotationProcessor;
@@ -22,10 +23,9 @@ public class AnnotationDispatcher implements Dispatcher {
 
     @Override
     public Processor dispatch(Annotation annotation) {
-        if(annotation instanceof Indexed) {
+        if(annotation instanceof Field) {
             return new FieldAnnotationProcessor(builder);
         }
-
 
         return null;
     }
