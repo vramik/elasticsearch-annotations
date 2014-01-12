@@ -10,7 +10,17 @@ import java.lang.reflect.Field;
  * Time: 21:07
  * To change this template use File | Settings | File Templates.
  */
-public interface Processor {
+public abstract class Processor {
 
-    public void process(Field field, Annotation annotation, Object entity);
+    private String prefix;
+
+    public abstract void process(Field field, Annotation annotation, Object entity);
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
 }

@@ -17,6 +17,9 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -27,21 +30,23 @@ import java.lang.reflect.Field;
  */
 public class AnnotationIndexer implements Indexer {
 
-    private XContentBuilder builder;// = jsonBuilder();
+    private Map<String, String> builder = new HashMap<String, String>();
 
     @Override
     public void index(Object entity) {
-        indexEntity(entity);
+        index(entity, "");
     }
 
-    private void indexEntity(Object entity) {
+    @Override
+    public void index(Object entity, String prefix) {
         // TODO: check if entity is annotated with @Indexed
 
-        Dispatcher dispatcher = new AnnotationDispatcher(builder);
+        Dispatcher dispatcher = new AnnotationDispatcher(builder, this);
 
         for(Field field: entity.getClass().getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
                 Processor processor = dispatcher.dispatch(annotation);
+                processor.setPrefix(prefix);
 
                 if(processor != null) {
                     processor.process(field, annotation, entity);
@@ -50,11 +55,8 @@ public class AnnotationIndexer implements Indexer {
         }
     }
 
-    public XContentBuilder getBuilder() {
-        return builder;
-    }
-
-    public void setBuilder(XContentBuilder builder) {
-        this.builder = builder;
+    @Override
+    public Map<String, String> getIndexAsMap() {
+        return Collections.unmodifiableMap(builder);
     }
 }

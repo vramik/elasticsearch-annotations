@@ -1,5 +1,6 @@
 package com.issuetracker.search.indexing.processors;
 
+import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.processors.api.Processor;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
@@ -15,12 +16,14 @@ import java.util.Map;
  * Time: 21:07
  * To change this template use File | Settings | File Templates.
  */
-public class FieldAnnotationProcessor extends Processor {
+public class IndexEmbeddedAnnotationProcessor extends Processor {
 
     private Map<String, String> builder;
+    private Indexer indexer;
 
-    public FieldAnnotationProcessor(Map<String, String> builder) {
+    public IndexEmbeddedAnnotationProcessor(Map<String, String> builder, Indexer indexer) {
         this.builder = builder;
+        this.indexer = indexer;
     }
 
     @Override
@@ -30,15 +33,20 @@ public class FieldAnnotationProcessor extends Processor {
             throw new IllegalStateException();
         }
 
-        String value = null;
+        if(indexer == null) {
+            // TODO: customize this exception text
+            throw new IllegalStateException();
+        }
+
+        Object embeddedObject = null;
         field.setAccessible(true);
         try {
-            value = field.get(entity).toString();
+            embeddedObject = field.get(entity);
         } catch (IllegalAccessException e) {
             //TODO: edit
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        builder.put(getPrefix() + field.getName(), value);
+        indexer.index(embeddedObject, getPrefix() + field.getName() + ".");
     }
 }
