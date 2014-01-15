@@ -4,11 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Jirka
- * Date: 3.11.13
- * Time: 21:07
- * To change this template use File | Settings | File Templates.
+ * TODO: document this
+ * @author Jiří Holuša
  */
 public abstract class Processor {
 

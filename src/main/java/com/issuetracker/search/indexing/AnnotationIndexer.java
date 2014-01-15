@@ -18,21 +18,18 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
  * // TODO: Document this
  *
- * @author jholusa
- * @since 4.0
+ * @author Jiří Holuša
  */
 public class AnnotationIndexer implements Indexer {
 
     private Map<String, String> builder = new HashMap<String, String>();
+    private List<Object> visitedEntities = new ArrayList<Object>();
 
     @Override
     public void index(Object entity) {
@@ -44,6 +41,15 @@ public class AnnotationIndexer implements Indexer {
         if(!isEntityAnnotated(entity)) {
             throw new IllegalArgumentException(); //TODO: change the text
         }
+
+        if(prefix == null) {
+            throw new IllegalArgumentException(); //TODO: change the text
+        }
+
+        if(visitedEntities.contains(entity)){
+            return;
+        }
+        visitedEntities.add(entity);
 
         Dispatcher dispatcher = new AnnotationDispatcher(builder, this);
 

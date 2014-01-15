@@ -9,8 +9,7 @@ import java.lang.annotation.Target;
 /**
  * // TODO: Document this
  *
- * @author jholusa
- * @since 4.0
+ * @author Jiří Holuša
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

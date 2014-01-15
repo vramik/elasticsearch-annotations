@@ -9,11 +9,8 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Jirka
- * Date: 3.11.13
- * Time: 21:07
- * To change this template use File | Settings | File Templates.
+ * TODO: document this
+ * @author Jiří Holuša
  */
 public class FieldAnnotationProcessor extends Processor {
 

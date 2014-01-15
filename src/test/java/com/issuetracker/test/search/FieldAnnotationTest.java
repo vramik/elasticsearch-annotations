@@ -2,7 +2,6 @@ package com.issuetracker.test.search;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
 import com.issuetracker.search.indexing.api.Indexer;
-import com.issuetracker.test.search.tools.Person;
 import com.issuetracker.test.search.tools.PersonWithFieldOnly;
 import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
@@ -15,6 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * TODO: document this
  * @author: Jiří Holuša
  */
 public class FieldAnnotationTest {

@@ -5,8 +5,7 @@ import java.util.Map;
 /**
  * // TODO: Document this
  *
- * @author jholusa
- * @since 4.0
+ * @author Jiří Holuša
  */
 public interface Indexer {
 

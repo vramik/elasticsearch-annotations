@@ -5,11 +5,8 @@ import com.issuetracker.search.indexing.processors.api.Processor;
 import java.lang.annotation.Annotation;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Jirka
- * Date: 3.11.13
- * Time: 21:06
- * To change this template use File | Settings | File Templates.
+ * TODO: document this
+ * @author Jiří Holuša
  */
 public interface Dispatcher {
 

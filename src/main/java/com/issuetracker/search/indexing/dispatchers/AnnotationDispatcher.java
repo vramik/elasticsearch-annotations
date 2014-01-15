@@ -15,7 +15,8 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 
 /**
- * @author Jiri Holusa <jholusa@redhat.com>
+ * TODO: document this
+ * @author Jiří Holuša
  */
 public class AnnotationDispatcher implements Dispatcher {
 

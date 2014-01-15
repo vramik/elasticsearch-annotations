@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -67,5 +68,22 @@ public class IndexEmbeddedAnnotationTest {
 
     @Test
     public void testIndexationWithCycle() {
+        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
+        PersonWithIndexEmbedded person2 = TestHelper.createTester2WithEmbedded();
+
+        person.setFriend(person2);
+        person2.setFriend(person);
+
+        indexer.index(person);
+        Map<String, String> index = indexer.getIndexAsMap();
+
+        assertNotNull(index);
+        assertTrue(index.containsKey("friend.name"));
+        assertTrue(index.containsKey("friend.id"));
+
+        assertEquals(TestHelper.PERSON_NAME2, index.get("friend.name"));
+        assertEquals(Integer.toString(TestHelper.PERSON_ID2), index.get("friend.id"));
+
+        System.out.println(index);
     }
 }
