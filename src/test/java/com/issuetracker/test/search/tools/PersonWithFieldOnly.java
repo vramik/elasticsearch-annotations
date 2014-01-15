@@ -11,35 +11,13 @@ import com.issuetracker.search.indexing.annotations.Indexed;
  * @since 4.0
  */
 @Indexed
-public class Person {
+public class PersonWithFieldOnly {
 
     @Field
     private String name;
 
     @Field
     private int id;
-
-    @IndexEmbedded
-    private Address address;
-
-    @IndexEmbedded
-    private Person friend;
-
-    public Person getFriend() {
-        return friend;
-    }
-
-    public void setFriend(Person friend) {
-        this.friend = friend;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public String getName() {
         return name;
@@ -62,7 +40,6 @@ public class Person {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
-                ", address=" + address +
                 '}';
     }
 }

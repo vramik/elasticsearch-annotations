@@ -47,6 +47,10 @@ public class IndexEmbeddedAnnotationProcessor extends Processor {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+        if(embeddedObject == null) {
+            return;
+        }
+
         indexer.index(embeddedObject, getPrefix() + field.getName() + ".");
     }
 }

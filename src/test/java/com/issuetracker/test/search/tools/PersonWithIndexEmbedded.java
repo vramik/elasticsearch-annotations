@@ -11,7 +11,7 @@ import com.issuetracker.search.indexing.annotations.Indexed;
  * @since 4.0
  */
 @Indexed
-public class Person {
+public class PersonWithIndexEmbedded {
 
     @Field
     private String name;
@@ -23,13 +23,13 @@ public class Person {
     private Address address;
 
     @IndexEmbedded
-    private Person friend;
+    private PersonWithIndexEmbedded friend;
 
-    public Person getFriend() {
+    public PersonWithIndexEmbedded getFriend() {
         return friend;
     }
 
-    public void setFriend(Person friend) {
+    public void setFriend(PersonWithIndexEmbedded friend) {
         this.friend = friend;
     }
 

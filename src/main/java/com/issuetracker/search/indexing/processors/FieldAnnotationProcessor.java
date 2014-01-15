@@ -30,15 +30,19 @@ public class FieldAnnotationProcessor extends Processor {
             throw new IllegalStateException();
         }
 
-        String value = null;
+        Object value = null;
         field.setAccessible(true);
         try {
-            value = field.get(entity).toString();
+            value = field.get(entity);
         } catch (IllegalAccessException e) {
             //TODO: edit
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        builder.put(getPrefix() + field.getName(), value);
+        if(value == null){
+            return;
+        }
+
+        builder.put(getPrefix() + field.getName(), value.toString());
     }
 }

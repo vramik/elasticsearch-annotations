@@ -1,13 +1,16 @@
 package com.issuetracker.test.search;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
-import com.issuetracker.test.search.tools.Person;
+import com.issuetracker.search.indexing.api.Indexer;
+import com.issuetracker.test.search.tools.PersonWithIndexEmbedded;
 import com.issuetracker.test.search.tools.TestHelper;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -15,10 +18,16 @@ import static org.junit.Assert.assertTrue;
  */
 public class IndexEmbeddedAnnotationTest {
 
+    private Indexer indexer;
+
+    @Before
+    public void init() {
+        indexer = new AnnotationIndexer();
+    }
+
     @Test
-    public void testIndexEmbeddedAnnotation() {
-        AnnotationIndexer indexer = new AnnotationIndexer();
-        Person person = TestHelper.createTester();
+    public void testBasicIndexation() {
+        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person);
         Map<String, String> index = indexer.getIndexAsMap();
@@ -31,9 +40,8 @@ public class IndexEmbeddedAnnotationTest {
     }
 
     @Test
-    public void testIndexEmbeddedAnnotationWithPrefix() {
-        AnnotationIndexer indexer = new AnnotationIndexer();
-        Person person = TestHelper.createTester();
+    public void testBasicIndexationWithPrefix() {
+        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person, "prefix.");
         Map<String, String> index = indexer.getIndexAsMap();
@@ -43,5 +51,21 @@ public class IndexEmbeddedAnnotationTest {
 
         assertEquals(TestHelper.ADDRESS_STREET, index.get("prefix.address.street"));
         assertEquals(TestHelper.ADDRESS_CITY, index.get("prefix.address.city"));
+    }
+
+    @Test
+    public void testNullIndexation() {
+        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
+        person.setAddress(null);
+
+        indexer.index(person);
+        Map<String, String> index = indexer.getIndexAsMap();
+
+        assertFalse(index.containsKey("address.street"));
+        assertFalse(index.containsKey("address.city"));
+    }
+
+    @Test
+    public void testIndexationWithCycle() {
     }
 }

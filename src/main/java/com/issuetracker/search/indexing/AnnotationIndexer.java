@@ -1,5 +1,6 @@
 package com.issuetracker.search.indexing;
 
+import com.issuetracker.search.indexing.annotations.Indexed;
 import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
@@ -17,6 +18,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +41,9 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity, String prefix) {
-        // TODO: check if entity is annotated with @Indexed
+        if(!isEntityAnnotated(entity)) {
+            throw new IllegalArgumentException(); //TODO: change the text
+        }
 
         Dispatcher dispatcher = new AnnotationDispatcher(builder, this);
 
@@ -58,5 +62,16 @@ public class AnnotationIndexer implements Indexer {
     @Override
     public Map<String, String> getIndexAsMap() {
         return Collections.unmodifiableMap(builder);
+    }
+
+    private boolean isEntityAnnotated(Object entity) {
+        Annotation[] annotations = entity.getClass().getDeclaredAnnotations();
+        for(Annotation annotation: annotations) {
+            if(annotation instanceof Indexed) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
