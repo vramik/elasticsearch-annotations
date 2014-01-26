@@ -2,7 +2,7 @@ package com.issuetracker.test.search;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
 import com.issuetracker.search.indexing.api.Indexer;
-import com.issuetracker.test.search.tools.PersonWithFieldOnly;
+import com.issuetracker.test.search.tools.Person;
 import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class FieldAnnotationTest {
 
     @Test
     public void testBasicIndexation() {
-        PersonWithFieldOnly person = TestHelper.createTesterWithFieldOnly();
+        Person person = TestHelper.createTesterWithFieldOnly();
 
         indexer.index(person);
         Map<String, String> index = indexer.getIndexAsMap();
@@ -42,7 +42,7 @@ public class FieldAnnotationTest {
 
     @Test
     public void testBasicIndexationWithPrefix() {
-        PersonWithFieldOnly person = TestHelper.createTesterWithFieldOnly();
+        Person person = TestHelper.createTesterWithFieldOnly();
 
         indexer.index(person, "prefix.");
         Map<String, String> index = indexer.getIndexAsMap();
@@ -56,7 +56,7 @@ public class FieldAnnotationTest {
 
     @Test
     public void testNullIndexation() {
-        PersonWithFieldOnly person = TestHelper.createTesterWithFieldOnly();
+        Person person = TestHelper.createTesterWithFieldOnly();
         person.setName(null);
 
         indexer.index(person);

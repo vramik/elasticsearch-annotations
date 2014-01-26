@@ -4,11 +4,14 @@ import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * // TODO: Document this
  *
- * @author jholusa
- * @since 4.0
+ * @author Jiří Holuša
  */
 @Indexed
 public class Person {
@@ -24,6 +27,36 @@ public class Person {
 
     @IndexEmbedded
     private Person friend;
+
+    private List<Person> preferredFriends;
+
+    private Set<Person> relatives;
+
+    private Map<String, Person> friendByNicknames;
+
+    public List<Person> getPreferredFriends() {
+        return preferredFriends;
+    }
+
+    public void setPreferredFriends(List<Person> preferredFriends) {
+        this.preferredFriends = preferredFriends;
+    }
+
+    public Set<Person> getRelatives() {
+        return relatives;
+    }
+
+    public void setRelatives(Set<Person> relatives) {
+        this.relatives = relatives;
+    }
+
+    public Map<String, Person> getFriendByNicknames() {
+        return friendByNicknames;
+    }
+
+    public void setFriendByNicknames(Map<String, Person> friendByNicknames) {
+        this.friendByNicknames = friendByNicknames;
+    }
 
     public Person getFriend() {
         return friend;

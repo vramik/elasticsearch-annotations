@@ -2,7 +2,7 @@ package com.issuetracker.test.search;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
 import com.issuetracker.search.indexing.api.Indexer;
-import com.issuetracker.test.search.tools.PersonWithIndexEmbedded;
+import com.issuetracker.test.search.tools.Person;
 import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class IndexEmbeddedAnnotationTest {
 
     @Test
     public void testBasicIndexation() {
-        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
+        Person person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person);
         Map<String, String> index = indexer.getIndexAsMap();
@@ -42,7 +42,7 @@ public class IndexEmbeddedAnnotationTest {
 
     @Test
     public void testBasicIndexationWithPrefix() {
-        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
+        Person person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person, "prefix.");
         Map<String, String> index = indexer.getIndexAsMap();
@@ -56,7 +56,7 @@ public class IndexEmbeddedAnnotationTest {
 
     @Test
     public void testNullIndexation() {
-        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
+        Person person = TestHelper.createTesterWithEmbedded();
         person.setAddress(null);
 
         indexer.index(person);
@@ -68,8 +68,8 @@ public class IndexEmbeddedAnnotationTest {
 
     @Test
     public void testIndexationWithCycle() {
-        PersonWithIndexEmbedded person = TestHelper.createTesterWithEmbedded();
-        PersonWithIndexEmbedded person2 = TestHelper.createTester2WithEmbedded();
+        Person person = TestHelper.createTesterWithEmbedded();
+        Person person2 = TestHelper.createTester2WithEmbedded();
 
         person.setFriend(person2);
         person2.setFriend(person);
@@ -81,9 +81,7 @@ public class IndexEmbeddedAnnotationTest {
         assertTrue(index.containsKey("friend.name"));
         assertTrue(index.containsKey("friend.id"));
 
-        assertEquals(TestHelper.PERSON_NAME2, index.get("friend.name"));
-        assertEquals(Integer.toString(TestHelper.PERSON_ID2), index.get("friend.id"));
-
-        System.out.println(index);
+        assertEquals(TestHelper.PERSON2_NAME, index.get("friend.name"));
+        assertEquals(Integer.toString(TestHelper.PERSON2_ID), index.get("friend.id"));
     }
 }
