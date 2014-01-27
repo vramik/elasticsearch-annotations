@@ -1,9 +1,5 @@
-package com.issuetracker.search.indexing.processors;
+package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.processors.api.Processor;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;

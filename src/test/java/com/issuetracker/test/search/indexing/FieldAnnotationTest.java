@@ -1,7 +1,7 @@
-package com.issuetracker.test.search;
+package com.issuetracker.test.search.indexing;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
-import com.issuetracker.search.indexing.api.Indexer;
+import com.issuetracker.search.indexing.Indexer;
 import com.issuetracker.test.search.tools.Person;
 import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;

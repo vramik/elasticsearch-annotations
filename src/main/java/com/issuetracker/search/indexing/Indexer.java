@@ -1,4 +1,4 @@
-package com.issuetracker.search.indexing.api;
+package com.issuetracker.search.indexing;
 
 import java.util.Map;
 

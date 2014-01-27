@@ -1,6 +1,7 @@
 package com.issuetracker.search.indexing;
 
 import com.issuetracker.search.indexing.annotations.Indexed;
+<<<<<<< HEAD
 import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
@@ -13,6 +14,8 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 36dacd8... Basics of indexer
 
+=======
+>>>>>>> 48a6516... @IndexEmbedded(depth) functionality introduced + structure reorganized
 
 =======
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
@@ -29,7 +32,7 @@ import java.util.*;
 public class AnnotationIndexer implements Indexer {
 
     private Map<String, String> builder = new HashMap<String, String>();
-    private List<Object> visitedEntities = new ArrayList<Object>();
+    private List<Class<?>> visitedEntities = new ArrayList<Class<?>>();
 
     @Override
     public void index(Object entity) {
@@ -38,20 +41,30 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity, String prefix) {
+        index(entity, prefix, null);
+    }
+
+    void index(Object entity, String prefix, Integer depth) {
         if(!isEntityAnnotated(entity)) {
             throw new IllegalArgumentException(); //TODO: change the text
+        }
+
+        if(depth != null && depth == 0) {
+            return;
         }
 
         if(prefix == null) {
             throw new IllegalArgumentException(); //TODO: change the text
         }
 
-        if(visitedEntities.contains(entity)){
+        if(depth != null && depth == -1 && visitedEntities.contains(entity.getClass())){
             return;
         }
-        visitedEntities.add(entity);
+        else {
+            visitedEntities.add(entity.getClass());
+        }
 
-        Dispatcher dispatcher = new AnnotationDispatcher(builder, this);
+        AnnotationDispatcher dispatcher = new AnnotationDispatcher(builder, this, depth);
 
         for(Field field: entity.getClass().getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {

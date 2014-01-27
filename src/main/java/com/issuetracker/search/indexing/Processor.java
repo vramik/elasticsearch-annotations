@@ -1,4 +1,4 @@
-package com.issuetracker.search.indexing.processors.api;
+package com.issuetracker.search.indexing;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

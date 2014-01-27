@@ -1,27 +1,25 @@
-package com.issuetracker.search.indexing.processors;
+package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.api.Indexer;
-import com.issuetracker.search.indexing.processors.api.Processor;
-import org.elasticsearch.common.xcontent.XContentBuilder;
+import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Map;
 
 /**
  * //TODO: document this
  * @author Jiří Holuša
  */
-public class IndexEmbeddedAnnotationProcessor extends Processor {
+public class SimpleEmbeddedObjectProcessor extends Processor {
 
-    private Indexer indexer;
+    private AnnotationIndexer indexer;
     private Map<String, String> builder;
+    private Integer depth;
 
-    public IndexEmbeddedAnnotationProcessor(Map<String, String> builder, Indexer indexer) {
+    public SimpleEmbeddedObjectProcessor(Map<String, String> builder, AnnotationIndexer indexer, Integer depth) {
         this.builder = builder;
         this.indexer = indexer;
+        this.depth = depth;
     }
 
     @Override
@@ -48,6 +46,14 @@ public class IndexEmbeddedAnnotationProcessor extends Processor {
             return;
         }
 
-        indexer.index(embeddedObject, getPrefix() + field.getName() + ".");
+        if(depth == null) {
+            IndexEmbedded thisAnnotation = (IndexEmbedded) annotation;
+            depth = thisAnnotation.depth();
+        }
+        else {
+            depth--;
+        }
+
+        indexer.index(embeddedObject, getPrefix() + field.getName() + ".", depth);
     }
 }

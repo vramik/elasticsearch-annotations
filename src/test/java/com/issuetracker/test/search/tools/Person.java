@@ -26,13 +26,35 @@ public class Person {
     private Address address;
 
     @IndexEmbedded
-    private Person friend;
+    private Person notIndexedFriend;
+
+    @IndexEmbedded(depth = 1)
+    private Person indexedFriend;
+
+    @IndexEmbedded(depth = 2)
+    private Person indexedFriendWithAddress;
 
     private List<Person> preferredFriends;
 
     private Set<Person> relatives;
 
     private Map<String, Person> friendByNicknames;
+
+    public Person getIndexedFriendWithAddress() {
+        return indexedFriendWithAddress;
+    }
+
+    public void setIndexedFriendWithAddress(Person indexedFriendWithAddress) {
+        this.indexedFriendWithAddress = indexedFriendWithAddress;
+    }
+
+    public Person getIndexedFriend() {
+        return indexedFriend;
+    }
+
+    public void setIndexedFriend(Person indexedFriend) {
+        this.indexedFriend = indexedFriend;
+    }
 
     public List<Person> getPreferredFriends() {
         return preferredFriends;
@@ -58,12 +80,12 @@ public class Person {
         this.friendByNicknames = friendByNicknames;
     }
 
-    public Person getFriend() {
-        return friend;
+    public Person getNotIndexedFriend() {
+        return notIndexedFriend;
     }
 
-    public void setFriend(Person friend) {
-        this.friend = friend;
+    public void setNotIndexedFriend(Person notIndexedFriend) {
+        this.notIndexedFriend = notIndexedFriend;
     }
 
     public Address getAddress() {
