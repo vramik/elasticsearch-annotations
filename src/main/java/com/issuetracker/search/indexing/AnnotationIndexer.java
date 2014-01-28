@@ -2,6 +2,7 @@ package com.issuetracker.search.indexing;
 
 import com.issuetracker.search.indexing.annotations.Indexed;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
@@ -19,6 +20,11 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 =======
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
+=======
+import com.issuetracker.search.indexing.commons.BranchDuplicationDetectionTree;
+import com.issuetracker.search.indexing.commons.Tree;
+
+>>>>>>> b0a2db5... Cyclic indexation resolved
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -32,7 +38,7 @@ import java.util.*;
 public class AnnotationIndexer implements Indexer {
 
     private Map<String, String> builder = new HashMap<String, String>();
-    private List<Class<?>> visitedEntities = new ArrayList<Class<?>>();
+    private Tree<Class<?>> visitedEntities = new BranchDuplicationDetectionTree<Class<?>>();
 
     @Override
     public void index(Object entity) {
@@ -41,10 +47,11 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity, String prefix) {
-        index(entity, prefix, null);
+        visitedEntities.add(entity.getClass(), null, null);
+        index(entity, prefix, null, null);
     }
 
-    void index(Object entity, String prefix, Integer depth) {
+    void index(Object entity, String prefix, Integer depth, Integer branchId) {
         if(!isEntityAnnotated(entity)) {
             throw new IllegalArgumentException(); //TODO: change the text
         }
@@ -57,14 +64,11 @@ public class AnnotationIndexer implements Indexer {
             throw new IllegalArgumentException(); //TODO: change the text
         }
 
-        if(depth != null && depth == -1 && visitedEntities.contains(entity.getClass())){
-            return;
-        }
-        else {
+        /*if(depth != null && depth == -1) {
             visitedEntities.add(entity.getClass());
-        }
+        } */
 
-        AnnotationDispatcher dispatcher = new AnnotationDispatcher(builder, this, depth);
+        AnnotationDispatcher dispatcher = new AnnotationDispatcher(builder, this, depth, branchId);
 
         for(Field field: entity.getClass().getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
@@ -92,5 +96,9 @@ public class AnnotationIndexer implements Indexer {
         }
 
         return false;
+    }
+
+    Tree<Class<?>> getVisitedEntities() {
+        return visitedEntities;
     }
 }

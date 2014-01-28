@@ -26,6 +26,9 @@ public class Person {
     private Address address;
 
     @IndexEmbedded
+    private Address backupAddress;
+
+    @IndexEmbedded
     private Person notIndexedFriend;
 
     @IndexEmbedded(depth = 1)
@@ -39,6 +42,14 @@ public class Person {
     private Set<Person> relatives;
 
     private Map<String, Person> friendByNicknames;
+
+    public Address getBackupAddress() {
+        return backupAddress;
+    }
+
+    public void setBackupAddress(Address backupAddress) {
+        this.backupAddress = backupAddress;
+    }
 
     public Person getIndexedFriendWithAddress() {
         return indexedFriendWithAddress;

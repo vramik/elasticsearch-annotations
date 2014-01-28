@@ -2,6 +2,8 @@ package com.issuetracker.test.search.indexing;
 
 import com.issuetracker.search.indexing.AnnotationIndexer;
 import com.issuetracker.search.indexing.Indexer;
+import com.issuetracker.search.indexing.commons.CyclicIndexationException;
+import com.issuetracker.test.search.tools.Address;
 import com.issuetracker.test.search.tools.Person;
 import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
@@ -66,23 +68,42 @@ public class SimpleEmbeddedObjectIndexationTest {
         assertFalse(index.containsKey("address.city"));
     }
 
-    @Test
-    public void testIndexationWithCycleWithoutDepth() {
+    @Test(expected = CyclicIndexationException.class)
+    public void testUnlimitedDepthNotIndexingCyclic() {
         Person person = TestHelper.createTesterWithEmbedded();
         Person person2 = TestHelper.createTester2WithEmbedded();
 
+        person.setAddress(null);
+        person2.setAddress(null);
         person.setNotIndexedFriend(person2);
+
+        indexer.index(person);
+    }
+
+    @Test
+    public void testUnlimitedDepthIndexingSameClassDifferentBranch() {
+        Person person = TestHelper.createTesterWithEmbedded();
+        Address address = person.getAddress();
+        address.setCity("modifiedCity");
+        address.setStreet("modifiedStreet");
+
+        person.setBackupAddress(address);
 
         indexer.index(person);
         Map<String, String> index = indexer.getIndexAsMap();
 
         assertNotNull(index);
-        assertFalse(index.containsKey("notIndexedFriend.name"));
-        assertFalse(index.containsKey("notIndexedFriend.id"));
+        assertTrue(index.containsKey("address.city"));
+        assertTrue(index.containsKey("address.street"));
+        assertTrue(index.containsKey("backupAddress.city"));
+        assertTrue(index.containsKey("backupAddress.street"));
+
+        assertEquals("modifiedCity", index.get("backupAddress.city"));
+        assertEquals("modifiedStreet", index.get("backupAddress.street"));
     }
 
     @Test
-    public void testIndexationWithCycleWithDepth() {
+    public void testIndexingCyclicWithDepth() {
         Person person = TestHelper.createTesterWithEmbedded();
         Person person2 = TestHelper.createTester2WithEmbedded();
 
@@ -100,7 +121,7 @@ public class SimpleEmbeddedObjectIndexationTest {
     }
 
     @Test
-    public void testIndexationWithCycleWithDepth2() {
+    public void testDepthSet() {
         Person person = TestHelper.createTesterWithEmbedded();
         Person person2 = TestHelper.createTester2WithEmbedded();
 
@@ -118,7 +139,7 @@ public class SimpleEmbeddedObjectIndexationTest {
     }
 
     @Test
-    public void testIndexationWithCycleWithDepth3() {
+    public void testDepthOnDifferentBranches() {
         Person person = TestHelper.createTesterWithEmbedded();
         Person person2 = TestHelper.createTester2WithEmbedded();
 
