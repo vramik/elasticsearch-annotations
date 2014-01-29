@@ -35,10 +35,7 @@ public class TestHelper {
 
     public static Person createTesterWithEmbedded() {
         Person person = createTesterWithFieldOnly();
-
-        Address address = new Address();
-        address.setStreet(ADDRESS_STREET);
-        address.setCity(ADDRESS_CITY);
+        Address address = createAddress();
 
         person.setAddress(address);
 
@@ -55,10 +52,7 @@ public class TestHelper {
 
     public static Person createTester2WithEmbedded() {
         Person person = createTester2WithFieldOnly();
-
-        Address address = new Address();
-        address.setStreet(ADDRESS2_STREET);
-        address.setCity(ADDRESS2_CITY);
+        Address address = createAddress2();
 
         person.setAddress(address);
 
@@ -75,47 +69,34 @@ public class TestHelper {
 
     public static Person createTester3WithEmbedded() {
         Person person = createTester3WithFieldOnly();
-
-        Address address = new Address();
-        address.setStreet(ADDRESS3_STREET);
-        address.setCity(ADDRESS3_CITY);
+        Address address = createAddress3();
 
         person.setAddress(address);
 
         return person;
     }
 
-    public Person createPersonWithCollections() {
-        Person person = createTesterWithEmbedded();
-        Person person2 = createTester2WithEmbedded();
-        Person person3 = createTester3WithEmbedded();
+    public static Address createAddress() {
+        Address address = new Address();
+        address.setStreet(ADDRESS_STREET);
+        address.setCity(ADDRESS_CITY);
 
-        List<Person> preferredFriends = new ArrayList<Person>();
-        preferredFriends.add(person2);
-        preferredFriends.add(person3);
-        person.setPreferredFriends(preferredFriends);
-
-        Person person4 = createTester2WithEmbedded();
-        person4.setId(4);
-        Person person5 = createTester3WithEmbedded();
-        person5.setId(5);
-
-        Set<Person> relatives = new HashSet<Person>();
-        relatives.add(person4);
-        relatives.add(person5);
-        person.setRelatives(relatives);
-
-        Person person6 = createTester2WithEmbedded();
-        person6.setId(6);
-        Person person7 = createTester3WithEmbedded();
-        person7.setId(7);
-
-        Map<String, Person> friendByNicknames = new HashMap<String, Person>();
-        friendByNicknames.put(PERSON2_NICK, person6);
-        friendByNicknames.put(PERSON3_NICK, person7);
-        person.setFriendByNicknames(friendByNicknames);
-
-        return person;
+        return address;
     }
 
+    public static Address createAddress2() {
+        Address address = new Address();
+        address.setStreet(ADDRESS2_STREET);
+        address.setCity(ADDRESS2_CITY);
+
+        return address;
+    }
+
+    public static Address createAddress3() {
+        Address address = new Address();
+        address.setStreet(ADDRESS3_STREET);
+        address.setCity(ADDRESS3_CITY);
+
+        return address;
+    }
 }

@@ -58,7 +58,7 @@ public class SimpleEmbeddedObjectIndexationTest {
 
     @Test
     public void testNullIndexation() {
-        Person person = TestHelper.createTesterWithEmbedded();
+        Person person = TestHelper.createTesterWithFieldOnly();
         person.setAddress(null);
 
         indexer.index(person);
@@ -70,8 +70,8 @@ public class SimpleEmbeddedObjectIndexationTest {
 
     @Test(expected = CyclicIndexationException.class)
     public void testUnlimitedDepthNotIndexingCyclic() {
-        Person person = TestHelper.createTesterWithEmbedded();
-        Person person2 = TestHelper.createTester2WithEmbedded();
+        Person person = TestHelper.createTesterWithFieldOnly();
+        Person person2 = TestHelper.createTester2WithFieldOnly();
 
         person.setAddress(null);
         person2.setAddress(null);
@@ -104,8 +104,8 @@ public class SimpleEmbeddedObjectIndexationTest {
 
     @Test
     public void testIndexingCyclicWithDepth() {
-        Person person = TestHelper.createTesterWithEmbedded();
-        Person person2 = TestHelper.createTester2WithEmbedded();
+        Person person = TestHelper.createTesterWithFieldOnly();
+        Person person2 = TestHelper.createTester2WithFieldOnly();
 
         person.setIndexedFriend(person2);
 

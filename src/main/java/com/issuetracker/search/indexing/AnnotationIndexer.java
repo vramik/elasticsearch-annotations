@@ -3,6 +3,7 @@ package com.issuetracker.search.indexing;
 import com.issuetracker.search.indexing.annotations.Indexed;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.issuetracker.search.indexing.api.Indexer;
 import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
 import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
@@ -21,6 +22,10 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 =======
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
 =======
+=======
+import com.issuetracker.search.indexing.builder.Builder;
+import com.issuetracker.search.indexing.builder.MapAppendBuilder;
+>>>>>>> 682b63b... @IndexEmbedded functionality for collections, arrays and maps introduced
 import com.issuetracker.search.indexing.commons.BranchDuplicationDetectionTree;
 import com.issuetracker.search.indexing.commons.Tree;
 
@@ -37,7 +42,7 @@ import java.util.*;
  */
 public class AnnotationIndexer implements Indexer {
 
-    private Map<String, String> builder = new HashMap<String, String>();
+    private Builder builder = new MapAppendBuilder();
     private Tree<Class<?>> visitedEntities = new BranchDuplicationDetectionTree<Class<?>>();
 
     @Override
@@ -47,15 +52,15 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity, String prefix) {
+        if(!entity.getClass().isAnnotationPresent(Indexed.class)) {
+            throw new IllegalArgumentException(); //TODO: change the text
+        }
+
         visitedEntities.add(entity.getClass(), null, null);
         index(entity, prefix, null, null);
     }
 
     void index(Object entity, String prefix, Integer depth, Integer branchId) {
-        if(!isEntityAnnotated(entity)) {
-            throw new IllegalArgumentException(); //TODO: change the text
-        }
-
         if(depth != null && depth == 0) {
             return;
         }
@@ -64,18 +69,14 @@ public class AnnotationIndexer implements Indexer {
             throw new IllegalArgumentException(); //TODO: change the text
         }
 
-        /*if(depth != null && depth == -1) {
-            visitedEntities.add(entity.getClass());
-        } */
-
         AnnotationDispatcher dispatcher = new AnnotationDispatcher(builder, this, depth, branchId);
 
         for(Field field: entity.getClass().getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
-                Processor processor = dispatcher.dispatch(annotation);
-                processor.setPrefix(prefix);
+                Processor processor = dispatcher.dispatch(field, annotation, entity);
 
                 if(processor != null) {
+                    processor.setPrefix(prefix);
                     processor.process(field, annotation, entity);
                 }
             }
@@ -84,18 +85,7 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public Map<String, String> getIndexAsMap() {
-        return Collections.unmodifiableMap(builder);
-    }
-
-    private boolean isEntityAnnotated(Object entity) {
-        Annotation[] annotations = entity.getClass().getDeclaredAnnotations();
-        for(Annotation annotation: annotations) {
-            if(annotation instanceof Indexed) {
-                return true;
-            }
-        }
-
-        return false;
+        return Collections.unmodifiableMap(builder.getIndexAsMap());
     }
 
     Tree<Class<?>> getVisitedEntities() {

@@ -4,9 +4,8 @@ import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * // TODO: Document this
@@ -37,11 +36,104 @@ public class Person {
     @IndexEmbedded(depth = 2)
     private Person indexedFriendWithAddress;
 
-    private List<Person> preferredFriends;
+    @IndexEmbedded
+    private Collection<Address> addressCollection;
 
-    private Set<Person> relatives;
+    @IndexEmbedded
+    private Collection<Person> notIndexedPersonCollection;
 
-    private Map<String, Person> friendByNicknames;
+    @IndexEmbedded(depth = 1)
+    private Collection<Person> indexedPersonCollection;
+
+    @IndexEmbedded
+    private Address[] addressArray;
+
+    @IndexEmbedded
+    private Person[] notIndexedPersonArray;
+
+    @IndexEmbedded(depth = 1)
+    private Person[] indexedPersonArray;
+
+    @IndexEmbedded
+    private Map<Integer, Address> addressMap;
+
+    @IndexEmbedded
+    private Map<Integer, Person> notIndexedPersonMap;
+
+    @IndexEmbedded(depth = 1)
+    private Map<Integer, Person> indexedPersonMap;
+
+    public Map<Integer, Address> getAddressMap() {
+        return addressMap;
+    }
+
+    public void setAddressMap(Map<Integer, Address> addressMap) {
+        this.addressMap = addressMap;
+    }
+
+    public Map<Integer, Person> getNotIndexedPersonMap() {
+        return notIndexedPersonMap;
+    }
+
+    public void setNotIndexedPersonMap(Map<Integer, Person> notIndexedPersonMap) {
+        this.notIndexedPersonMap = notIndexedPersonMap;
+    }
+
+    public Map<Integer, Person> getIndexedPersonMap() {
+        return indexedPersonMap;
+    }
+
+    public void setIndexedPersonMap(Map<Integer, Person> indexedPersonMap) {
+        this.indexedPersonMap = indexedPersonMap;
+    }
+
+    public Person[] getIndexedPersonArray() {
+        return indexedPersonArray;
+    }
+
+    public void setIndexedPersonArray(Person[] indexedPersonArray) {
+        this.indexedPersonArray = indexedPersonArray;
+    }
+
+    public Person[] getNotIndexedPersonArray() {
+        return notIndexedPersonArray;
+    }
+
+    public void setNotIndexedPersonArray(Person[] notIndexedPersonArray) {
+        this.notIndexedPersonArray = notIndexedPersonArray;
+    }
+
+    public Address[] getAddressArray() {
+        return addressArray;
+    }
+
+    public void setAddressArray(Address[] addressArray) {
+        this.addressArray = addressArray;
+    }
+
+    public Collection<Person> getIndexedPersonCollection() {
+        return indexedPersonCollection;
+    }
+
+    public void setIndexedPersonCollection(Collection<Person> indexedPersonCollection) {
+        this.indexedPersonCollection = indexedPersonCollection;
+    }
+
+    public void setAddressCollection(Collection<Address> addressCollection) {
+        this.addressCollection = addressCollection;
+    }
+
+    public Collection<Person> getNotIndexedPersonCollection() {
+        return notIndexedPersonCollection;
+    }
+
+    public void setNotIndexedPersonCollection(Collection<Person> notIndexedPersonCollection) {
+        this.notIndexedPersonCollection = notIndexedPersonCollection;
+    }
+
+    public Collection<Address> getAddressCollection() {
+        return addressCollection;
+    }
 
     public Address getBackupAddress() {
         return backupAddress;
@@ -65,30 +157,6 @@ public class Person {
 
     public void setIndexedFriend(Person indexedFriend) {
         this.indexedFriend = indexedFriend;
-    }
-
-    public List<Person> getPreferredFriends() {
-        return preferredFriends;
-    }
-
-    public void setPreferredFriends(List<Person> preferredFriends) {
-        this.preferredFriends = preferredFriends;
-    }
-
-    public Set<Person> getRelatives() {
-        return relatives;
-    }
-
-    public void setRelatives(Set<Person> relatives) {
-        this.relatives = relatives;
-    }
-
-    public Map<String, Person> getFriendByNicknames() {
-        return friendByNicknames;
-    }
-
-    public void setFriendByNicknames(Map<String, Person> friendByNicknames) {
-        this.friendByNicknames = friendByNicknames;
     }
 
     public Person getNotIndexedFriend() {

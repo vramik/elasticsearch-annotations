@@ -6,20 +6,21 @@ import com.issuetracker.search.indexing.commons.CyclicIndexationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Map;
 
 /**
  * //TODO: document this
  * @author Jiří Holuša
  */
-public class SimpleEmbeddedObjectProcessor extends Processor {
+public class EmbeddedMapProcessor extends Processor {
 
     private AnnotationIndexer indexer;
     private Builder builder;
     private Integer depth;
     private Integer branchId;
 
-    public SimpleEmbeddedObjectProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId) {
+    public EmbeddedMapProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId) {
         this.builder = builder;
         this.indexer = indexer;
         this.depth = depth;
@@ -50,6 +51,12 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             return;
         }
 
+        if(!(embeddedObject instanceof Map)) {
+            throw new IllegalStateException(); //TODO: change the text
+        }
+
+        Map<?, ?> embeddedMap = (Map<?, ?>) embeddedObject;
+
         if(depth == null) {
             IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
             depth = typedAnnotation.depth();
@@ -60,15 +67,17 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             }
         }
 
-        if(depth != null && depth == -1) {
-            try {
-                branchId = indexer.getVisitedEntities().add(embeddedObject.getClass(), entity.getClass(), branchId);
-            } catch(IllegalStateException ex) {
-                throw new CyclicIndexationException("Class " + embeddedObject.getClass().getName() +
-                        " has already been processed.", ex);
+        for(Object object: embeddedMap.values()) {
+            if(depth != null && depth == -1) {
+                try {
+                    branchId = indexer.getVisitedEntities().add(object.getClass(), entity.getClass(), branchId);
+                } catch(IllegalStateException ex) {
+                    throw new CyclicIndexationException("Class " + object.getClass().getName() +
+                            " has already been processed.", ex);
+                }
             }
-        }
 
-        indexer.index(embeddedObject, getPrefix() + field.getName() + ".", depth, branchId);
+            indexer.index(object, getPrefix() + field.getName() + ".", depth, branchId);
+        }
     }
 }

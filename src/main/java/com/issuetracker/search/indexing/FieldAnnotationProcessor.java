@@ -1,5 +1,7 @@
 package com.issuetracker.search.indexing;
 
+import com.issuetracker.search.indexing.builder.Builder;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -10,9 +12,9 @@ import java.util.Map;
  */
 public class FieldAnnotationProcessor extends Processor {
 
-    private Map<String, String> builder;
+    private Builder builder;
 
-    public FieldAnnotationProcessor(Map<String, String> builder) {
+    public FieldAnnotationProcessor(Builder builder) {
         this.builder = builder;
     }
 

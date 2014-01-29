@@ -1,25 +1,27 @@
 package com.issuetracker.search.indexing;
 
+import com.issuetracker.search.indexing.AnnotationIndexer;
+import com.issuetracker.search.indexing.Processor;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.builder.Builder;
 import com.issuetracker.search.indexing.commons.CyclicIndexationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Map;
+import java.util.Collection;
 
 /**
  * //TODO: document this
  * @author Jiří Holuša
  */
-public class SimpleEmbeddedObjectProcessor extends Processor {
+public class EmbeddedArrayProcessor extends Processor {
 
     private AnnotationIndexer indexer;
     private Builder builder;
     private Integer depth;
     private Integer branchId;
 
-    public SimpleEmbeddedObjectProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId) {
+    public EmbeddedArrayProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId) {
         this.builder = builder;
         this.indexer = indexer;
         this.depth = depth;
@@ -50,6 +52,12 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             return;
         }
 
+        if(!embeddedObject.getClass().isArray()) {
+            throw new IllegalStateException(); //TODO: change the text
+        }
+
+        Object[] embeddedArray = (Object[]) embeddedObject;
+
         if(depth == null) {
             IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
             depth = typedAnnotation.depth();
@@ -60,15 +68,17 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             }
         }
 
-        if(depth != null && depth == -1) {
-            try {
-                branchId = indexer.getVisitedEntities().add(embeddedObject.getClass(), entity.getClass(), branchId);
-            } catch(IllegalStateException ex) {
-                throw new CyclicIndexationException("Class " + embeddedObject.getClass().getName() +
-                        " has already been processed.", ex);
+        for(Object object: embeddedArray) {
+            if(depth != null && depth == -1) {
+                try {
+                    branchId = indexer.getVisitedEntities().add(object.getClass(), entity.getClass(), branchId);
+                } catch(IllegalStateException ex) {
+                    throw new CyclicIndexationException("Class " + object.getClass().getName() +
+                            " has already been processed.", ex);
+                }
             }
-        }
 
-        indexer.index(embeddedObject, getPrefix() + field.getName() + ".", depth, branchId);
+            indexer.index(object, getPrefix() + field.getName() + ".", depth, branchId);
+        }
     }
 }
