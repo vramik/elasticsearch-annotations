@@ -9,8 +9,6 @@ import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +40,7 @@ public class EmbeddedMapIndexationTest {
         person.setAddressMap(addressMap);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("addressMap.street"));
         assertTrue(index.containsKey("addressMap.city"));
@@ -81,7 +79,7 @@ public class EmbeddedMapIndexationTest {
         person.setIndexedPersonMap(personMap);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("indexedPersonMap.name"));
         assertTrue(index.containsKey("indexedPersonMap.id"));

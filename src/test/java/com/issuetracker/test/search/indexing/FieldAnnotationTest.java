@@ -31,7 +31,7 @@ public class FieldAnnotationTest {
         Person person = TestHelper.createTesterWithFieldOnly();
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("name"));
         assertTrue(index.containsKey("id"));
@@ -45,7 +45,7 @@ public class FieldAnnotationTest {
         Person person = TestHelper.createTesterWithFieldOnly();
 
         indexer.index(person, "prefix.");
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("prefix.name"));
         assertTrue(index.containsKey("prefix.id"));
@@ -60,7 +60,7 @@ public class FieldAnnotationTest {
         person.setName(null);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("id"));
         assertFalse(index.containsKey("name"));

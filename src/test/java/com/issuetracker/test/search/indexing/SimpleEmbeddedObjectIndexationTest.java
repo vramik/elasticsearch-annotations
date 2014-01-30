@@ -33,7 +33,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         Person person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("address.street"));
         assertTrue(index.containsKey("address.city"));
@@ -47,7 +47,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         Person person = TestHelper.createTesterWithEmbedded();
 
         indexer.index(person, "prefix.");
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("prefix.address.street"));
         assertTrue(index.containsKey("prefix.address.city"));
@@ -62,7 +62,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         person.setAddress(null);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertFalse(index.containsKey("address.street"));
         assertFalse(index.containsKey("address.city"));
@@ -90,7 +90,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         person.setBackupAddress(address);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertNotNull(index);
         assertTrue(index.containsKey("address.city"));
@@ -110,7 +110,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         person.setIndexedFriend(person2);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertNotNull(index);
         assertTrue(index.containsKey("indexedFriend.name"));
@@ -128,7 +128,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         person.setIndexedFriendWithAddress(person2);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertNotNull(index);
         assertTrue(index.containsKey("indexedFriendWithAddress.address.street"));
@@ -147,7 +147,7 @@ public class SimpleEmbeddedObjectIndexationTest {
         person.setIndexedFriendWithAddress(person2);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertNotNull(index);
         assertTrue(index.containsKey("indexedFriend.name"));

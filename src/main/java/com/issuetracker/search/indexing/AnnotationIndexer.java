@@ -44,6 +44,8 @@ public class AnnotationIndexer implements Indexer {
 
     private Builder builder = new MapAppendBuilder();
     private Tree<Class<?>> visitedEntities = new BranchDuplicationDetectionTree<Class<?>>();
+    private Set<Object> markedModified = new HashSet<Object>();
+    private Object indexedEntity;
 
     @Override
     public void index(Object entity) {
@@ -57,10 +59,11 @@ public class AnnotationIndexer implements Indexer {
         }
 
         visitedEntities.add(entity.getClass(), null, null);
-        index(entity, prefix, null, null);
+        indexedEntity = entity;
+        index(entity, prefix, null, null, true);
     }
 
-    void index(Object entity, String prefix, Integer depth, Integer branchId) {
+    void index(Object entity, String prefix, Integer depth, Integer branchId, boolean processContainedIn) {
         if(depth != null && depth == 0) {
             return;
         }
@@ -73,7 +76,7 @@ public class AnnotationIndexer implements Indexer {
 
         for(Field field: entity.getClass().getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
-                Processor processor = dispatcher.dispatch(field, annotation, entity);
+                Processor processor = dispatcher.dispatch(field, annotation, entity, processContainedIn);
 
                 if(processor != null) {
                     processor.setPrefix(prefix);
@@ -84,11 +87,30 @@ public class AnnotationIndexer implements Indexer {
     }
 
     @Override
-    public Map<String, String> getIndexAsMap() {
+    public Map<String, String> getIndexOfSingleEntityAsMap() {
         return Collections.unmodifiableMap(builder.getIndexAsMap());
+    }
+
+    @Override
+    public Map<Object, Map<String, String>> getCompleteIndexChanges() {
+        Map<Object, Map<String, String>> returnValue = new HashMap<Object, Map<String, String>>();
+        for(Object object: markedModified) {
+            AnnotationIndexer indexer = new AnnotationIndexer();
+            indexer.index(object, "", null, null, false);
+
+            returnValue.put(object, indexer.getIndexOfSingleEntityAsMap());
+        }
+
+        returnValue.put(indexedEntity, builder.getIndexAsMap());
+
+        return Collections.unmodifiableMap(returnValue);
     }
 
     Tree<Class<?>> getVisitedEntities() {
         return visitedEntities;
+    }
+
+    Set<Object> getMarkedModified() {
+        return markedModified;
     }
 }

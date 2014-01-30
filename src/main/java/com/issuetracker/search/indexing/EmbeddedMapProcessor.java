@@ -19,12 +19,14 @@ public class EmbeddedMapProcessor extends Processor {
     private Builder builder;
     private Integer depth;
     private Integer branchId;
+    private boolean processContainedIn;
 
-    public EmbeddedMapProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId) {
+    public EmbeddedMapProcessor(Builder builder, AnnotationIndexer indexer, Integer depth, Integer branchId, boolean processContainedIn) {
         this.builder = builder;
         this.indexer = indexer;
         this.depth = depth;
         this.branchId = branchId;
+        this.processContainedIn = processContainedIn;
     }
 
     @Override
@@ -77,7 +79,7 @@ public class EmbeddedMapProcessor extends Processor {
                 }
             }
 
-            indexer.index(object, getPrefix() + field.getName() + ".", depth, branchId);
+            indexer.index(object, getPrefix() + field.getName() + ".", depth, branchId, processContainedIn);
         }
     }
 }

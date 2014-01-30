@@ -28,6 +28,9 @@ public class Person {
     private Address backupAddress;
 
     @IndexEmbedded
+    private Address addressAsAssociation;
+
+    @IndexEmbedded
     private Person notIndexedFriend;
 
     @IndexEmbedded(depth = 1)
@@ -62,6 +65,14 @@ public class Person {
 
     @IndexEmbedded(depth = 1)
     private Map<Integer, Person> indexedPersonMap;
+
+    public Address getAddressAsAssociation() {
+        return addressAsAssociation;
+    }
+
+    public void setAddressAsAssociation(Address addressAsAssociation) {
+        this.addressAsAssociation = addressAsAssociation;
+    }
 
     public Map<Integer, Address> getAddressMap() {
         return addressMap;

@@ -9,8 +9,6 @@ import com.issuetracker.test.search.tools.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
@@ -41,7 +39,7 @@ public class EmbeddedArrayIndexationTest {
         person.setAddressArray(addressArray);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("addressArray.street"));
         assertTrue(index.containsKey("addressArray.city"));
@@ -80,7 +78,7 @@ public class EmbeddedArrayIndexationTest {
         person.setIndexedPersonArray(personArray);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("indexedPersonArray.name"));
         assertTrue(index.containsKey("indexedPersonArray.id"));

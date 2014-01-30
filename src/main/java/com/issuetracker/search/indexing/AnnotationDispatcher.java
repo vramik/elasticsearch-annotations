@@ -1,5 +1,6 @@
 package com.issuetracker.search.indexing;
 
+import com.issuetracker.search.indexing.annotations.ContainedIn;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.builder.Builder;
@@ -27,7 +28,7 @@ public class AnnotationDispatcher {
         this.branchId = branchId;
     }
 
-    public Processor dispatch(java.lang.reflect.Field field, Annotation annotation, Object entity) {
+    public Processor dispatch(java.lang.reflect.Field field, Annotation annotation, Object entity, boolean processContainedIn) {
         Object embeddedObject = null;
         field.setAccessible(true);
         try {
@@ -54,18 +55,26 @@ public class AnnotationDispatcher {
             }
 
             if(embeddedObject instanceof Collection) {
-                return new EmbeddedCollectionProcessor(builder, indexer, depth, branchId);
+                return new EmbeddedCollectionProcessor(builder, indexer, depth, branchId, processContainedIn);
             }
 
             if(embeddedObject instanceof Map) {
-                return new EmbeddedMapProcessor(builder, indexer, depth, branchId);
+                return new EmbeddedMapProcessor(builder, indexer, depth, branchId, processContainedIn);
             }
 
             if(embeddedObject.getClass().isArray()) {
-                return new EmbeddedArrayProcessor(builder, indexer, depth, branchId);
+                return new EmbeddedArrayProcessor(builder, indexer, depth, branchId, processContainedIn);
             }
 
-            return new SimpleEmbeddedObjectProcessor(builder, indexer, depth, branchId);
+            return new SimpleEmbeddedObjectProcessor(builder, indexer, depth, branchId, processContainedIn);
+        }
+
+        if(processContainedIn && annotation instanceof ContainedIn) {
+            if(TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
+                throw new IllegalArgumentException(); //TODO: change the text
+            }
+
+            return new ContainedInProcessor(indexer);
         }
 
         return null;

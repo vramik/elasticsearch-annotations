@@ -39,7 +39,7 @@ public class EmbeddedCollectionIndexationTest {
         person.setAddressCollection(addressCollection);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("addressCollection.street"));
         assertTrue(index.containsKey("addressCollection.city"));
@@ -78,7 +78,7 @@ public class EmbeddedCollectionIndexationTest {
         person.setIndexedPersonCollection(personCollection);
 
         indexer.index(person);
-        Map<String, String> index = indexer.getIndexAsMap();
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
 
         assertTrue(index.containsKey("indexedPersonCollection.name"));
         assertTrue(index.containsKey("indexedPersonCollection.id"));

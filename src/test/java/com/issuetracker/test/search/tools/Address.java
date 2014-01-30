@@ -1,7 +1,11 @@
 package com.issuetracker.test.search.tools;
 
+import com.issuetracker.search.indexing.annotations.ContainedIn;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.Indexed;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +22,50 @@ public class Address {
 
     @Field
     private String city;
+
+    @ContainedIn
+    private Person associatedPerson;
+
+    @ContainedIn
+    private Collection<Person> associatedPeopleInCollection;
+
+    @ContainedIn
+    private Map<?, Person> associatedPeopleInMap;
+
+    @ContainedIn
+    private Person[] associatedPeopleInArray;
+
+    public Map<?, Person> getAssociatedPeopleInMap() {
+        return associatedPeopleInMap;
+    }
+
+    public void setAssociatedPeopleInMap(Map<?, Person> associatedPeopleInMap) {
+        this.associatedPeopleInMap = associatedPeopleInMap;
+    }
+
+    public Person[] getAssociatedPeopleInArray() {
+        return associatedPeopleInArray;
+    }
+
+    public void setAssociatedPeopleInArray(Person[] associatedPeopleInArray) {
+        this.associatedPeopleInArray = associatedPeopleInArray;
+    }
+
+    public Collection<Person> getAssociatedPeopleInCollection() {
+        return associatedPeopleInCollection;
+    }
+
+    public void setAssociatedPeopleInCollection(Collection<Person> associatedPeopleInCollection) {
+        this.associatedPeopleInCollection = associatedPeopleInCollection;
+    }
+
+    public Person getAssociatedPerson() {
+        return associatedPerson;
+    }
+
+    public void setAssociatedPerson(Person associatedPerson) {
+        this.associatedPerson = associatedPerson;
+    }
 
     public String getStreet() {
         return street;
