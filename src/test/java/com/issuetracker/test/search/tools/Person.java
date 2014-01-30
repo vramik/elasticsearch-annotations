@@ -1,5 +1,6 @@
 package com.issuetracker.test.search.tools;
 
+import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.annotations.Indexed;
@@ -18,6 +19,7 @@ public class Person {
     @Field
     private String name;
 
+    @DocumentId
     @Field
     private int id;
 

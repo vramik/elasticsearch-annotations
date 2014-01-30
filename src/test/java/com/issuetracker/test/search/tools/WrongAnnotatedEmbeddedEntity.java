@@ -1,5 +1,6 @@
 package com.issuetracker.test.search.tools;
 
+import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
@@ -12,6 +13,7 @@ import com.issuetracker.search.indexing.annotations.Indexed;
 @Indexed
 public class WrongAnnotatedEmbeddedEntity {
 
+    @DocumentId
     @Field
     private int[] numbers = {1, 2};
 

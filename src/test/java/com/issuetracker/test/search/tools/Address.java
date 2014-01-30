@@ -1,6 +1,7 @@
 package com.issuetracker.test.search.tools;
 
 import com.issuetracker.search.indexing.annotations.ContainedIn;
+import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
@@ -16,6 +17,9 @@ import java.util.Map;
  */
 @Indexed
 public class Address {
+
+    @DocumentId
+    private int id;
 
     @Field
     private String street;
@@ -81,6 +85,14 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
