@@ -1,5 +1,7 @@
 package com.issuetracker.search.indexing;
 
+import com.issuetracker.search.indexing.builder.Builder;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
@@ -10,6 +12,12 @@ import java.lang.reflect.Field;
 public abstract class Processor {
 
     private String prefix;
+
+    protected AnnotationIndexer indexer;
+    protected Builder builder;
+    protected Integer depth;
+    protected Integer branchId;
+    protected boolean processContainedIn;
 
     public abstract void process(Field field, Annotation annotation, Object entity);
 

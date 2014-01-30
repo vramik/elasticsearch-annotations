@@ -16,12 +16,6 @@ import java.util.Collection;
  */
 public class EmbeddedArrayProcessor extends Processor {
 
-    private AnnotationIndexer indexer;
-    private Builder builder;
-    private Integer depth;
-    private Integer branchId;
-    private boolean processContainedIn;
-
     public EmbeddedArrayProcessor(Builder builder, AnnotationIndexer indexer,
                                   Integer depth, Integer branchId, boolean processContainedIn) {
         this.builder = builder;

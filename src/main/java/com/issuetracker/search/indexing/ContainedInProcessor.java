@@ -15,8 +15,6 @@ import java.util.Map;
  */
 public class ContainedInProcessor extends Processor {
 
-    private AnnotationIndexer indexer;
-
     public ContainedInProcessor(AnnotationIndexer indexer) {
         this.indexer = indexer;
     }
