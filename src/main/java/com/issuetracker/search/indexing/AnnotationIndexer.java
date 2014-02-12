@@ -55,8 +55,6 @@ public class AnnotationIndexer implements Indexer {
 
     @Override
     public void index(Object entity, String prefix) {
-        isEntityProperlyAnnotated(entity);
-
         visitedEntities.add(entity.getClass(), null, null);
         indexedEntity = entity;
         index(entity, prefix, null, null, true);
@@ -103,29 +101,6 @@ public class AnnotationIndexer implements Indexer {
         returnValue.put(indexedEntity, builder.getIndexAsMap());
 
         return Collections.unmodifiableMap(returnValue);
-    }
-
-    private void isEntityProperlyAnnotated(Object entity) {
-        if(!entity.getClass().isAnnotationPresent(Indexed.class)) {
-            throw new IllegalArgumentException("Entity " + entity.getClass().getName() + " must be annotated @Indexed.");
-        }
-
-        boolean documentIdFound = false;
-        for(Field field: entity.getClass().getDeclaredFields()) {
-            for(Annotation annotation: field.getDeclaredAnnotations()) {
-                if(annotation instanceof DocumentId) {
-                    if(documentIdFound) {
-                        throw new IllegalArgumentException("Entity " + entity.getClass().getName() + " cannot have more that one @DocumentId's.");
-                    }
-
-                    documentIdFound = true;
-                }
-            }
-        }
-
-        if(!documentIdFound) {
-            throw new IllegalArgumentException("Entity " + entity.getClass().getName() + " doesn't have @DocumentId field.");
-        }
     }
 
     Tree<Class<?>> getVisitedEntities() {

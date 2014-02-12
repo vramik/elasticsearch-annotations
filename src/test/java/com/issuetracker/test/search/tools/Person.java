@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author Jiří Holuša
  */
-@Indexed
+@Indexed(index = TestHelper.PERSON_INDEX, type = TestHelper.PERSON_TYPE)
 public class Person {
 
     @Field

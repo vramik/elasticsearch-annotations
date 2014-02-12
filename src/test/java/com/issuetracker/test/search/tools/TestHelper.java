@@ -7,6 +7,9 @@ import java.util.*;
  */
 public class TestHelper {
 
+    public static final String PERSON_INDEX = "people";
+    public static final String PERSON_TYPE = "person";
+
     public static final String PERSON_NAME = "Bruce Banner";
     public static final String PERSON_NICK = "Hulk";
     public static final int PERSON_ID = 1;

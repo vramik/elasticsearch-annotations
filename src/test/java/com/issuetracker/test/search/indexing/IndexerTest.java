@@ -21,12 +21,6 @@ public class IndexerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testEntityAnnotatedWithIndexed() {
-        NotAnnotatedEntity notAnnotatedEntity = new NotAnnotatedEntity();
-        indexer.index(notAnnotatedEntity);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testPrimitiveFieldAnnotatedWithIndexedEmbedded() {
         WrongAnnotatedPrimitiveEntity wrongAnnotatedPrimitiveEntity = new WrongAnnotatedPrimitiveEntity();
         indexer.index(wrongAnnotatedPrimitiveEntity);

@@ -27,7 +27,7 @@
         <version.wicket.cdi>1.2</version.wicket.cdi>
         <version.picketbox>5.0.0.Final</version.picketbox>
 
-        <version.elasticsearch>0.90.5</version.elasticsearch>
+        <version.elasticsearch>0.90.11</version.elasticsearch>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
@@ -417,6 +417,11 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
             <version>${version.elasticsearch}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tlrx</groupId>
+            <artifactId>elasticsearch-test</artifactId>
+            <version>0.90.6</version>
         </dependency>
                 
         <!-- Java Mail API -->
