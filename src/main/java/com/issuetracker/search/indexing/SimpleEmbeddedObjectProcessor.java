@@ -6,10 +6,11 @@ import com.issuetracker.search.indexing.commons.CyclicIndexationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Map;
 
 /**
- * //TODO: document this
+ * Implementation of Processor. Handles simple non-primitive objects (for instance custom classes,
+ * not collections, etc.)
+ *
  * @author Jiří Holuša
  */
 public class SimpleEmbeddedObjectProcessor extends Processor {

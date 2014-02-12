@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * TODO: document this
+ * Delegates the processing to processor based on the annotations
+ * present on field and their parameters/types.
+ *
  * @author Jiří Holuša
  */
 public class AnnotationDispatcher {
@@ -28,6 +30,15 @@ public class AnnotationDispatcher {
         this.branchId = branchId;
     }
 
+    /**
+     * Chooses correct processor for supplied field.
+     *
+     * @param field field to be processed
+     * @param annotation present annotation
+     * @param entity object that contains the field
+     * @param processContainedIn flag if @ContainedIn annotation should be taken into account
+     * @return
+     */
     public Processor dispatch(java.lang.reflect.Field field, Annotation annotation, Object entity, boolean processContainedIn) {
         Object embeddedObject = null;
         field.setAccessible(true);

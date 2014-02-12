@@ -17,6 +17,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Tests SimpleEmbeddedObjectProcessor.
+ *
  * @author: Jiří Holuša
  */
 public class SimpleEmbeddedObjectIndexationTest {
@@ -28,6 +30,9 @@ public class SimpleEmbeddedObjectIndexationTest {
         indexer = new AnnotationIndexer();
     }
 
+    /**
+     * Basic simple index scenario.
+     */
     @Test
     public void testBasicIndexation() {
         Person person = TestHelper.createTesterWithEmbedded();
@@ -56,6 +61,9 @@ public class SimpleEmbeddedObjectIndexationTest {
         assertEquals(TestHelper.ADDRESS_CITY, index.get("prefix.address.city"));
     }
 
+    /**
+     * Test not indexing null fields.
+     */
     @Test
     public void testNullIndexation() {
         Person person = TestHelper.createTesterWithFieldOnly();
@@ -68,6 +76,9 @@ public class SimpleEmbeddedObjectIndexationTest {
         assertFalse(index.containsKey("address.city"));
     }
 
+    /**
+     * Tests for cyclic indexation not happening.
+     */
     @Test(expected = CyclicIndexationException.class)
     public void testUnlimitedDepthNotIndexingCyclic() {
         Person person = TestHelper.createTesterWithFieldOnly();
@@ -138,6 +149,9 @@ public class SimpleEmbeddedObjectIndexationTest {
         assertEquals(TestHelper.ADDRESS2_CITY, index.get("indexedFriendWithAddress.address.city"));
     }
 
+    /**
+     * Test indexing same classes on different process branch.
+     */
     @Test
     public void testDepthOnDifferentBranches() {
         Person person = TestHelper.createTesterWithEmbedded();

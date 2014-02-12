@@ -14,7 +14,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * TODO: document this
+ * Tests FieldAnnotationProcessor.
+ *
  * @author: Jiří Holuša
  */
 public class FieldAnnotationTest {

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * //TODO: document this
+ * Helper class for determining primitive classes.
  *
  * @author Jiří Holuša
  */

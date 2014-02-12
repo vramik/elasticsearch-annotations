@@ -5,7 +5,8 @@ import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.annotations.Indexed;
 
 /**
- * // TODO: Document this
+ * Object for testing purposes. Should raise an exception during
+ * indexation because primitive field is annotated with @IndexEmbedded
  *
  * @author Jiří Holuša
  */

@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * //TODO: document this
+ * Implementation of Builder interface. The put creates new entry if the key
+ * doesn't exist, otherwise it appends to the current value.
  *
  * @author Jiří Holuša
  */

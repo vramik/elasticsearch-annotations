@@ -1,16 +1,13 @@
 package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.annotations.IndexEmbedded;
-import com.issuetracker.search.indexing.builder.Builder;
-import com.issuetracker.search.indexing.commons.CyclicIndexationException;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 
 /**
- * //TODO: document this
+ * Implementation of Processor. Handles fields annotated with @ContainedIn.
+ *
  * @author Jiří Holuša
  */
 public class ContainedInProcessor extends Processor {

@@ -4,28 +4,40 @@ import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Indexed;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-
 /**
- * //TODO: document this
+ * High-level manager. Used for automated index creation according to annotated
+ * entities and sending the index into Elasticsearch.
  *
  * @author Jiří Holuša
  */
 public class AnnotationIndexManager {
 
+    /* Elasticsearch client that is used for communication with server */
     private Client client;
 
+    /**
+     *
+     * @param client Elasticsearch client that is used for communication with server
+     */
     public AnnotationIndexManager(Client client) {
         this.client = client;
     }
 
+    /**
+     * Creates index of the entity and also recreates all indexes that
+     * has been affected by this indexation (for example because of associations).
+     * Than sends the index into Elasticsearch via provided client
+     * and stores the index according to setting in @Indexed annotation
+     * and @DocumentId annotation.
+     *
+     * @param entity entity to be indexed
+     */
     public void index(Object entity) {
         isEntityProperlyAnnotated(entity);
 
@@ -76,10 +88,6 @@ public class AnnotationIndexManager {
         Indexed indexedAnnotation = entity.getClass().getAnnotation(Indexed.class);
         String index = indexedAnnotation.index();
 
-        if(index.length() == 0) {
-            index = "default";
-        }
-
         return index;
     }
 
@@ -128,6 +136,4 @@ public class AnnotationIndexManager {
             throw new IllegalArgumentException("Entity " + entity.getClass().getName() + " doesn't have @DocumentId field.");
         }
     }
-
-
 }

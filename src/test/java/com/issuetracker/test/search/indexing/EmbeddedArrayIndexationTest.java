@@ -15,6 +15,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Tests EmbeddedArrayProcessor.
+ *
  * @author: Jiří Holuša
  */
 public class EmbeddedArrayIndexationTest {

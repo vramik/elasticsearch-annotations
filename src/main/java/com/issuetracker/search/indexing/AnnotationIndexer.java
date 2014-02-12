@@ -1,5 +1,6 @@
 package com.issuetracker.search.indexing;
 
+<<<<<<< HEAD
 import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Indexed;
 <<<<<<< HEAD
@@ -24,6 +25,8 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 >>>>>>> 9b235ba... Basic functionality of @Field indexation
 =======
 =======
+=======
+>>>>>>> 6f8fb9a... JavaDoc introduced + imports clean up
 import com.issuetracker.search.indexing.builder.Builder;
 import com.issuetracker.search.indexing.builder.MapAppendBuilder;
 >>>>>>> 682b63b... @IndexEmbedded functionality for collections, arrays and maps introduced
@@ -37,7 +40,8 @@ import java.util.*;
 
 
 /**
- * // TODO: Document this
+ * Implementation of Indexer. Core class. Provides building of JSON-like
+ * index according to annotated entities.
  *
  * @author Jiří Holuša
  */

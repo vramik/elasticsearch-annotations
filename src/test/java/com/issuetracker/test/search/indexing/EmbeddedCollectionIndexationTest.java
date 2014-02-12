@@ -15,6 +15,8 @@ import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.*;
 
 /**
+ * Tests for EmbeddedCollectionProcessor.
+ *
  * @author: Jiří Holuša
  */
 public class EmbeddedCollectionIndexationTest {

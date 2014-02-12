@@ -9,11 +9,9 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Jirka
- * Date: 12.1.14
- * Time: 18:30
- * To change this template use File | Settings | File Templates.
+ * Entity for testing purposes.
+ *
+ * @author Jiří Holuša
  */
 @Indexed
 public class Address {

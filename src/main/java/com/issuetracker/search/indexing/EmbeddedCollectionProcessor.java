@@ -7,10 +7,10 @@ import com.issuetracker.search.indexing.commons.CyclicIndexationException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Map;
 
 /**
- * //TODO: document this
+ * Implementation of Processor. Handles Collection fields annotated with @IndexEmbedded.
+ *
  * @author Jiří Holuša
  */
 public class EmbeddedCollectionProcessor extends Processor {

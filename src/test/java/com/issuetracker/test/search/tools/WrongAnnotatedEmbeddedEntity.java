@@ -6,7 +6,8 @@ import com.issuetracker.search.indexing.annotations.Indexed;
 
 
 /**
- * // TODO: Document this
+ * Object for testing purposes. Should raise an exception during
+ * indexation because non-primitive field is annotated as @Field.
  *
  * @author Jiří Holuša
  */

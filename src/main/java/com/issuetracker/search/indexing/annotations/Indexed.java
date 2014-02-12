@@ -1,13 +1,9 @@
 package com.issuetracker.search.indexing.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * // TODO: Document this
+ * Annotations marks entity as usable to indexation mechanism.
  *
  * @author Jiří Holuša
  */
@@ -16,7 +12,16 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Indexed {
 
-    String index() default "";
+    /**
+     * Allow to identify the index name location.
+     * If no value set, "default" index name will be provided.
+     */
+    String index() default "default";
 
+    /**
+     * Allow to identify the type name location.
+     * If no value set, type name will be generated from class name.
+     * @return
+     */
     String type() default "";
 }

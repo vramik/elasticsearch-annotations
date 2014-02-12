@@ -18,6 +18,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Test for indexation of associations.
+ *
  * @author: Jiří Holuša
  */
 public class AssociationIndexationTest {

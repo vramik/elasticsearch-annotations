@@ -4,10 +4,9 @@ import com.issuetracker.search.indexing.builder.Builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Map;
 
 /**
- * TODO: document this
+ * Implementation of Processor. Handles fields annotated with @Field.
  * @author Jiří Holuša
  */
 public class FieldAnnotationProcessor extends Processor {

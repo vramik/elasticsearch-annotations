@@ -3,7 +3,8 @@ package com.issuetracker.search.indexing.annotations;
 import java.lang.annotation.*;
 
 /**
- * // TODO: Document this
+ * Annotation marks attributed that is used as primary key of the
+ * index.
  *
  * @author Jiří Holuša
  */

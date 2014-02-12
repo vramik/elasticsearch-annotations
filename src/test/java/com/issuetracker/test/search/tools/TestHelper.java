@@ -3,6 +3,8 @@ package com.issuetracker.test.search.tools;
 import java.util.*;
 
 /**
+ * Helper class for testing. Provied creation of testing objects.
+ *
  * @author: Jiří Holuša
  */
 public class TestHelper {

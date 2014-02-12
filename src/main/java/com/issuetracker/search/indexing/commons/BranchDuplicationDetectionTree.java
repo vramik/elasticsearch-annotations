@@ -1,12 +1,11 @@
 package com.issuetracker.search.indexing.commons;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * //TODO: document this
+ * Implementation of Tree interface. It does not allow to insert the
+ * same instance into the same branch.
  *
  * @author Jiří Holuša
  */
@@ -15,6 +14,9 @@ public class BranchDuplicationDetectionTree<T> implements Tree<T> {
     private Node<T> root;
     private int branchCounter = 0;
 
+    /**
+     * @throws IllegalStateException if the object is already present in the branch
+     */
     @Override
     public Integer add(T value, T parent, Integer branchId) {
         if(root == null) {
@@ -74,6 +76,10 @@ public class BranchDuplicationDetectionTree<T> implements Tree<T> {
         }
     }
 
+    /**
+     * Internal representation of node.
+     * @param <T>
+     */
     class Node<T> {
 
         private T value;

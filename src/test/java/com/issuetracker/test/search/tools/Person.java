@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * // TODO: Document this
+ * Object for testing purposes.
  *
  * @author Jiří Holuša
  */

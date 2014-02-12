@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * Tests Indexer.
+ *
  * @author: Jiří Holuša
  */
 public class IndexerTest {

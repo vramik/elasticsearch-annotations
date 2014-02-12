@@ -1,7 +1,7 @@
 package com.issuetracker.search.indexing.commons;
 
 /**
- * //TODO: document this
+ * Exception that signal cyclic indexation.
  *
  * @author Jiří Holuša
  */

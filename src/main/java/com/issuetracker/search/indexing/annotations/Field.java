@@ -1,13 +1,9 @@
 package com.issuetracker.search.indexing.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * // TODO: Document this
+ * Annotation to mark simple primitive attributes.
  *
  * @author Jiří Holuša
  */

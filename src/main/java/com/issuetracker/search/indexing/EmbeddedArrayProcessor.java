@@ -1,17 +1,15 @@
 package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.AnnotationIndexer;
-import com.issuetracker.search.indexing.Processor;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.builder.Builder;
 import com.issuetracker.search.indexing.commons.CyclicIndexationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Collection;
 
 /**
- * //TODO: document this
+ * Implementation of Processor. Handles Array fields annotated with @IndexEmbedded.
+ *
  * @author Jiří Holuša
  */
 public class EmbeddedArrayProcessor extends Processor {

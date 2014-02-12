@@ -4,7 +4,8 @@ import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 
 /**
- * // TODO: Document this
+ * Entity for testing purposes. Should raise an exception during indexation
+ * because it's not annotated with @Indexed.
  *
  * @author Jiří Holuša
  */
