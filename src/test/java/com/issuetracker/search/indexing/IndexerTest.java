@@ -1,10 +1,7 @@
-package com.issuetracker.test.search.indexing;
+package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.AnnotationIndexer;
-import com.issuetracker.search.indexing.Indexer;
-import com.issuetracker.test.search.tools.NotAnnotatedEntity;
-import com.issuetracker.test.search.tools.WrongAnnotatedEmbeddedEntity;
-import com.issuetracker.test.search.tools.WrongAnnotatedPrimitiveEntity;
+import com.issuetracker.search.tools.WrongAnnotatedEmbeddedEntity;
+import com.issuetracker.search.tools.WrongAnnotatedPrimitiveEntity;
 import org.junit.Before;
 import org.junit.Test;
 

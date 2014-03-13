@@ -1,4 +1,4 @@
-package com.issuetracker.test.search.tools;
+package com.issuetracker.search.tools;
 
 import com.issuetracker.search.indexing.annotations.DocumentId;
 import com.issuetracker.search.indexing.annotations.Field;

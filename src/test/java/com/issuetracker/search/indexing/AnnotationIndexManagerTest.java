@@ -1,27 +1,18 @@
-package com.issuetracker.test.search.indexing;
+package com.issuetracker.search.indexing;
 
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchClient;
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchNode;
 import com.github.tlrx.elasticsearch.test.support.junit.runners.ElasticsearchRunner;
-import com.issuetracker.search.indexing.AnnotationIndexManager;
-import com.issuetracker.search.indexing.AnnotationIndexer;
-import com.issuetracker.search.indexing.Indexer;
-import com.issuetracker.test.search.tools.Address;
-import com.issuetracker.test.search.tools.Person;
-import com.issuetracker.test.search.tools.TestHelper;
+import com.issuetracker.search.tools.TestHelper;
+import com.issuetracker.search.tools.Person;
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.node.Node;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.util.*;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import static org.junit.Assert.assertEquals;

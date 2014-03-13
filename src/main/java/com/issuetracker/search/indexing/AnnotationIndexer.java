@@ -1,39 +1,10 @@
 package com.issuetracker.search.indexing;
 
-<<<<<<< HEAD
-import com.issuetracker.search.indexing.annotations.DocumentId;
-import com.issuetracker.search.indexing.annotations.Indexed;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.issuetracker.search.indexing.api.Indexer;
-import com.issuetracker.search.indexing.dispatchers.AnnotationDispatcher;
-import com.issuetracker.search.indexing.dispatchers.api.Dispatcher;
-import com.issuetracker.search.indexing.processors.api.Processor;
-<<<<<<< HEAD
-import static org.elasticsearch.common.xcontent.XContentFactory.*;
-
-<<<<<<< HEAD
-=======
-import org.elasticsearch.common.xcontent.XContentBuilder;
->>>>>>> 36dacd8... Basics of indexer
-
-=======
->>>>>>> 48a6516... @IndexEmbedded(depth) functionality introduced + structure reorganized
-
-=======
->>>>>>> 9b235ba... Basic functionality of @Field indexation
-=======
-=======
-=======
->>>>>>> 6f8fb9a... JavaDoc introduced + imports clean up
 import com.issuetracker.search.indexing.builder.Builder;
 import com.issuetracker.search.indexing.builder.MapAppendBuilder;
->>>>>>> 682b63b... @IndexEmbedded functionality for collections, arrays and maps introduced
 import com.issuetracker.search.indexing.commons.BranchDuplicationDetectionTree;
 import com.issuetracker.search.indexing.commons.Tree;
 
->>>>>>> b0a2db5... Cyclic indexation resolved
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;

@@ -1,6 +1,4 @@
-package com.issuetracker.test.search.tools;
-
-import java.util.*;
+package com.issuetracker.search.tools;
 
 /**
  * Helper class for testing. Provied creation of testing objects.
