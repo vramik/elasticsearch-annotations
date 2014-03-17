@@ -27,7 +27,7 @@
         <version.wicket.cdi>1.2</version.wicket.cdi>
         <version.picketbox>5.0.0.Final</version.picketbox>
 
-        <version.elasticsearch>0.90.11</version.elasticsearch>
+        <version.elasticsearch>1.0.1</version.elasticsearch>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
