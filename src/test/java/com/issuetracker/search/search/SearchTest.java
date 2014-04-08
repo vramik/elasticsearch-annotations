@@ -1,5 +1,8 @@
 package com.issuetracker.search.search;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchClient;
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchNode;
 import com.github.tlrx.elasticsearch.test.support.junit.runners.ElasticsearchRunner;
@@ -61,8 +64,6 @@ public class SearchTest {
                 .execute()
                 .actionGet();
 
-
-
         client.close();
     }
 
@@ -73,12 +74,12 @@ public class SearchTest {
 
         SearchResponse response = client.prepareSearch("index")
                 .setQuery(QueryBuilders.queryString("beer").field("secondKey", 2.0f))
-                .setExplain(true)
                 .setTypes("type")
                 .execute()
                 .actionGet();
 
         System.out.println(response.toString());
+        System.out.println(response.getHits().getAt(0).getSource());
 
         client.close();
     }
