@@ -30,6 +30,15 @@ public class AnnotationIndexManager {
     }
 
     /**
+     * Alias for index(entity, false), e.g. indexation without refreshing
+     *
+     * @param entity
+     */
+    public void index(Object entity) {
+        index(entity, false);
+    }
+
+    /**
      * Creates index of the entity and also recreates all indexes that
      * has been affected by this indexation (for example because of associations).
      * Than sends the index into Elasticsearch via provided client
@@ -37,8 +46,9 @@ public class AnnotationIndexManager {
      * and @DocumentId annotation.
      *
      * @param entity entity to be indexed
+     * @param refresh if index changes should be immediately refreshed
      */
-    public void index(Object entity) {
+    public void index(Object entity, boolean refresh) {
         isEntityProperlyAnnotated(entity);
 
         AnnotationIndexer indexer = new AnnotationIndexer();
@@ -55,6 +65,7 @@ public class AnnotationIndexManager {
 
             IndexResponse response = client.prepareIndex(index, type, documentId)
                     .setSource(convertedMap)
+                    .setRefresh(refresh)
                     .execute()
                     .actionGet();
         }
