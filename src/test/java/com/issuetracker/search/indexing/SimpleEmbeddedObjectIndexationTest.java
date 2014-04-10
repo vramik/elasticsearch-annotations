@@ -1,6 +1,6 @@
 package com.issuetracker.search.indexing;
 
-import com.issuetracker.search.indexing.commons.CyclicIndexationException;
+import com.issuetracker.search.commons.CyclicIndexationException;
 import com.issuetracker.search.tools.TestHelper;
 import com.issuetracker.search.tools.Address;
 import com.issuetracker.search.tools.Person;

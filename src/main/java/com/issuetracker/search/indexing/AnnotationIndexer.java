@@ -2,8 +2,8 @@ package com.issuetracker.search.indexing;
 
 import com.issuetracker.search.indexing.builder.Builder;
 import com.issuetracker.search.indexing.builder.MapAppendBuilder;
-import com.issuetracker.search.indexing.commons.BranchDuplicationDetectionTree;
-import com.issuetracker.search.indexing.commons.Tree;
+import com.issuetracker.search.commons.BranchDuplicationDetectionTree;
+import com.issuetracker.search.commons.Tree;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

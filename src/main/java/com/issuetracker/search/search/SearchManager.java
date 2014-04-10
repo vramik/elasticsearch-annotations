@@ -1,5 +1,6 @@
 package com.issuetracker.search.search;
 
+import com.issuetracker.search.commons.TypeChecker;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
@@ -60,9 +61,14 @@ public class SearchManager {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
                 if(annotation instanceof com.issuetracker.search.indexing.annotations.Field &&
                         source.containsKey(field.getName())) {
+                    if(!TypeChecker.isPrimitiveOrString(field.getType())) {
+                        throw new IllegalStateException(); //TODO: handle this exception properly
+                    }
+
                     field.setAccessible(true);
                     try {
-                        field.set(result, source.get(field.getName()));
+                        Object value =  TypeChecker.castObjectToPrimitive(source.get(field.getName()).toString(), field.getType());
+                        field.set(result, value);
                     } catch (IllegalAccessException e) {
                         //TODO: handle exception properly
                     }

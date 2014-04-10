@@ -1,4 +1,4 @@
-package com.issuetracker.search.indexing.commons;
+package com.issuetracker.search.commons;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -2,7 +2,7 @@ package com.issuetracker.search.indexing;
 
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.builder.Builder;
-import com.issuetracker.search.indexing.commons.CyclicIndexationException;
+import com.issuetracker.search.commons.CyclicIndexationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

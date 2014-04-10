@@ -1,4 +1,4 @@
-package com.issuetracker.search.indexing.commons;
+package com.issuetracker.search.commons;
 
 /**
  * Exception that signal cyclic indexation.

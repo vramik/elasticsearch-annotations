@@ -4,7 +4,7 @@ import com.issuetracker.search.indexing.annotations.ContainedIn;
 import com.issuetracker.search.indexing.annotations.Field;
 import com.issuetracker.search.indexing.annotations.IndexEmbedded;
 import com.issuetracker.search.indexing.builder.Builder;
-import com.issuetracker.search.indexing.commons.TypeChecker;
+import com.issuetracker.search.commons.TypeChecker;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
