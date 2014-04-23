@@ -58,18 +58,22 @@ public class SearchManager {
 
         for(Field field: clazz.getDeclaredFields()) {
             for(Annotation annotation: field.getDeclaredAnnotations()) {
-                if(annotation instanceof com.github.holmistr.esannotations.indexing.annotations.Field &&
-                        source.containsKey(field.getName())) {
-                    if(!TypeChecker.isPrimitiveOrString(field.getType())) {
-                        throw new IllegalStateException(); //TODO: handle this exception properly
-                    }
+                if(annotation instanceof com.github.holmistr.esannotations.indexing.annotations.Field) {
+                    com.github.holmistr.esannotations.indexing.annotations.Field typedAnnotation = (com.github.holmistr.esannotations.indexing.annotations.Field)annotation;
 
-                    field.setAccessible(true);
-                    try {
-                        Object value =  TypeChecker.castObjectToPrimitive(source.get(field.getName()).toString(), field.getType());
-                        field.set(result, value);
-                    } catch (IllegalAccessException e) {
-                        //TODO: handle exception properly
+                    if(source.containsKey(field.getName()) || source.containsKey(typedAnnotation.name())) {
+                        String fieldName = source.containsKey(typedAnnotation.name()) ? typedAnnotation.name() : field.getName();
+                        if(!TypeChecker.isPrimitiveOrString(field.getType())) {
+                            throw new IllegalStateException(); //TODO: handle this exception properly
+                        }
+
+                        field.setAccessible(true);
+                        try {
+                            Object value =  TypeChecker.castObjectToPrimitive(source.get(fieldName).toString(), field.getType());
+                            field.set(result, value);
+                        } catch (IllegalAccessException e) {
+                            //TODO: handle exception properly
+                        }
                     }
                 }
             }
