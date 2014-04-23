@@ -48,8 +48,8 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             return;
         }
 
+        IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
         if(depth == null) {
-            IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
             depth = typedAnnotation.depth();
         }
         else {
@@ -67,6 +67,7 @@ public class SimpleEmbeddedObjectProcessor extends Processor {
             }
         }
 
-        indexer.index(embeddedObject, getPrefix() + field.getName() + ".", depth, branchId, processContainedIn);
+        String fieldName = typedAnnotation.name().isEmpty() ? field.getName() : typedAnnotation.name();
+        indexer.index(embeddedObject, getPrefix() + fieldName + ".", depth, branchId, processContainedIn);
     }
 }

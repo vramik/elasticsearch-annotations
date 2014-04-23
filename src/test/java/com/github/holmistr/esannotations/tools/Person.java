@@ -19,12 +19,18 @@ public class Person {
     @Field
     private String name;
 
+    @Field(name = "renamedPrimitive")
+    private String renamedField;
+
     @DocumentId
     @Field
     private int id;
 
     @IndexEmbedded
     private Address address;
+
+    @IndexEmbedded(name = "renamedAddress")
+    private Address renamedEmbeddedField;
 
     @IndexEmbedded
     private Address backupAddress;
@@ -67,6 +73,22 @@ public class Person {
 
     @IndexEmbedded(depth = 1)
     private Map<Integer, Person> indexedPersonMap;
+
+    public String getRenamedField() {
+        return renamedField;
+    }
+
+    public void setRenamedField(String renamedField) {
+        this.renamedField = renamedField;
+    }
+
+    public Address getRenamedEmbeddedField() {
+        return renamedEmbeddedField;
+    }
+
+    public void setRenamedEmbeddedField(Address renamedEmbeddedField) {
+        this.renamedEmbeddedField = renamedEmbeddedField;
+    }
 
     public Address getAddressAsAssociation() {
         return addressAsAssociation;

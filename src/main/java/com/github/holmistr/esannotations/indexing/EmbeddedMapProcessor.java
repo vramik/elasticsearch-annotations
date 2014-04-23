@@ -53,8 +53,8 @@ public class EmbeddedMapProcessor extends Processor {
 
         Map<?, ?> embeddedMap = (Map<?, ?>) embeddedObject;
 
+        IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
         if(depth == null) {
-            IndexEmbedded typedAnnotation = (IndexEmbedded) annotation;
             depth = typedAnnotation.depth();
         }
         else {
@@ -73,7 +73,8 @@ public class EmbeddedMapProcessor extends Processor {
                 }
             }
 
-            indexer.index(object, getPrefix() + field.getName() + ".", depth, branchId, processContainedIn);
+            String fieldName = typedAnnotation.name().isEmpty() ? field.getName() : typedAnnotation.name();
+            indexer.index(object, getPrefix() + fieldName + ".", depth, branchId, processContainedIn);
         }
     }
 }

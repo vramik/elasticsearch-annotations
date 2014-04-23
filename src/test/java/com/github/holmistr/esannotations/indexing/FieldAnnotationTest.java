@@ -54,6 +54,18 @@ public class FieldAnnotationTest {
     }
 
     @Test
+    public void testRenamedField() {
+        Person person = TestHelper.createTesterWithFieldOnly();
+        person.setRenamedField("renamed value");
+
+        indexer.index(person);
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
+
+        assertTrue(index.containsKey("renamedPrimitive"));
+        assertEquals("renamed value", index.get("renamedPrimitive"));
+    }
+
+    @Test
     public void testNullIndexation() {
         Person person = TestHelper.createTesterWithFieldOnly();
         person.setName(null);

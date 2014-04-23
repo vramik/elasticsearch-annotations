@@ -59,6 +59,21 @@ public class SimpleEmbeddedObjectIndexationTest {
         assertEquals(TestHelper.ADDRESS_CITY, index.get("prefix.address.city"));
     }
 
+    @Test
+    public void testRenamedField() {
+        Person person = TestHelper.createTesterWithEmbedded();
+        Address address = TestHelper.createAddress3();
+        person.setRenamedEmbeddedField(address);
+
+        indexer.index(person);
+        Map<String, String> index = indexer.getIndexOfSingleEntityAsMap();
+
+        assertTrue(index.containsKey("renamedAddress.street"));
+        assertTrue(index.containsKey("renamedAddress.city"));
+        assertEquals(TestHelper.ADDRESS3_STREET, index.get("renamedAddress.street"));
+        assertEquals(TestHelper.ADDRESS3_CITY, index.get("renamedAddress.city"));
+    }
+
     /**
      * Test not indexing null fields.
      */

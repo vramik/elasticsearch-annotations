@@ -37,6 +37,8 @@ public class FieldAnnotationProcessor extends Processor {
             return;
         }
 
-        builder.put(getPrefix() + field.getName(), value.toString());
+        com.github.holmistr.esannotations.indexing.annotations.Field typedAnnotation = (com.github.holmistr.esannotations.indexing.annotations.Field) annotation;
+        String fieldName = typedAnnotation.name().isEmpty() ? field.getName() : typedAnnotation.name();
+        builder.put(getPrefix() + fieldName, value.toString());
     }
 }

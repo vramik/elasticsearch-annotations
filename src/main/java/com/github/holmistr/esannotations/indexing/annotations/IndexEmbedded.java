@@ -14,6 +14,14 @@ import java.lang.annotation.*;
 public @interface IndexEmbedded {
 
     /**
+     * Change the name of the field in the index. If not provided, name with be
+     * selected as attribute name.
+     *
+     * @return
+     */
+    String name() default "";
+
+    /**
      * Specify depth of the indexation. If not provided, the indexation
      * will stop if the same class has already been processed in the currect
      * branch of processing graph.

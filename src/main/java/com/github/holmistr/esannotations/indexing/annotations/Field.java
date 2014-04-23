@@ -11,4 +11,13 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Field {
+
+    /**
+     * Change the name of the field in the index. If not provided, name with be
+     * selected as attribute name.
+     *
+     * @return
+     */
+    String name() default "";
+
 }
