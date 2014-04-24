@@ -80,7 +80,7 @@ public class AnnotationIndexManager {
                     try {
                         documentId = field.get(entity);
                     } catch (IllegalAccessException e) {
-                        //TODO: edit
+                        throw new RuntimeException("Unable to get value of the field.", e);
                     }
 
                     if(documentId == null) {
@@ -131,7 +131,7 @@ public class AnnotationIndexManager {
                     try {
                         documentId = field.get(entity);
                     } catch (IllegalAccessException e) {
-                        //TODO: edit
+                        throw new RuntimeException("Unable to get value of the field.", e);
                     }
 
                     if(documentId == null) {

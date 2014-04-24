@@ -20,8 +20,7 @@ public class FieldAnnotationProcessor extends Processor {
     @Override
     public void process(Field field, Annotation annotation, Object entity) {
         if(builder == null) {
-            //TODO: customize this exception text
-            throw new IllegalStateException();
+            throw new IllegalStateException("Builder cannot be null.");
         }
 
         Object value = null;
@@ -29,8 +28,7 @@ public class FieldAnnotationProcessor extends Processor {
         try {
             value = field.get(entity);
         } catch (IllegalAccessException e) {
-            //TODO: edit
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new RuntimeException("Unable to get value of the field.", e);
         }
 
         if(value == null){

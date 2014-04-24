@@ -45,7 +45,7 @@ public class AnnotationDispatcher {
         try {
             embeddedObject = field.get(entity);
         } catch (IllegalAccessException e) {
-            //TODO: edit
+            throw new RuntimeException("Unable to get value of the field.", e);
         }
 
         if(embeddedObject == null) {
@@ -54,7 +54,7 @@ public class AnnotationDispatcher {
 
         if(annotation instanceof Field) {
             if(!TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
-                throw new IllegalArgumentException(); //TODO: change the text
+                throw new IllegalArgumentException("Field annotation can be applied only to primitives or string.");
             }
 
             return new FieldAnnotationProcessor(builder);
@@ -62,7 +62,7 @@ public class AnnotationDispatcher {
 
         if(annotation instanceof IndexEmbedded) {
             if(TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
-                throw new IllegalArgumentException(); //TODO: change the text
+                throw new IllegalArgumentException("IndexEmbedded annotation cannot be applied to primitives.");
             }
 
             if(embeddedObject instanceof Collection) {
@@ -82,7 +82,7 @@ public class AnnotationDispatcher {
 
         if(processContainedIn && annotation instanceof ContainedIn) {
             if(TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
-                throw new IllegalArgumentException(); //TODO: change the text
+                throw new IllegalArgumentException("ContainedIn annotation cannot be applied to primitives.");
             }
 
             return new ContainedInProcessor(indexer);

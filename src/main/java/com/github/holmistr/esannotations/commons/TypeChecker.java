@@ -22,7 +22,7 @@ public class TypeChecker {
 
     public static <T> Object castObjectToPrimitive(String source, Class<T> clazz) {
         if(!isPrimitiveOrString(clazz)) {
-            throw new IllegalArgumentException(); //TODO: handle this properly
+            throw new IllegalArgumentException("Object is not instance of a primitive or String.");
         }
 
         if(clazz.equals(Integer.class) || clazz.equals(int.class)) {
@@ -61,7 +61,7 @@ public class TypeChecker {
             return source;
         }
 
-        throw new IllegalStateException(); //TODO: change text
+        throw new IllegalStateException("Found no code to cast the object to primitive.");
     }
 
     private static Set<Class<?>> getWrapperTypes() {

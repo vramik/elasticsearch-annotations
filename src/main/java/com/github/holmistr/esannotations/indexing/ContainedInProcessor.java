@@ -19,8 +19,7 @@ public class ContainedInProcessor extends Processor {
     @Override
     public void process(Field field, Annotation annotation, Object entity) {
         if(indexer == null) {
-            // TODO: customize this exception text
-            throw new IllegalStateException();
+            throw new IllegalStateException("Indexer cannot be null.");
         }
 
         Object embeddedObject = null;
@@ -28,7 +27,7 @@ public class ContainedInProcessor extends Processor {
         try {
             embeddedObject = field.get(entity);
         } catch (IllegalAccessException e) {
-            //TODO: edit
+            throw new RuntimeException("Unable to get value of the field.", e);
         }
 
         if(embeddedObject == null) {

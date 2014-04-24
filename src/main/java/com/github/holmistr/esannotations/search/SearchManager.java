@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * //TODO: document this
+ * SearchManager can take a query and execute it via Elasticsearch client.
+ * Then returns typed result.
  *
  * @author Jiří Holuša
  */
@@ -51,9 +52,9 @@ public class SearchManager {
         try {
             result = clazz.newInstance();
         } catch (InstantiationException e) {
-            //TODO: handle exception properly
+            throw new RuntimeException("Error during creating new class instance.", e);
         } catch (IllegalAccessException e) {
-            //TODO: handle exception properly
+            throw new RuntimeException("Error during creating new class instance.", e);
         }
 
         for(Field field: clazz.getDeclaredFields()) {
@@ -64,7 +65,7 @@ public class SearchManager {
                     if(source.containsKey(field.getName()) || source.containsKey(typedAnnotation.name())) {
                         String fieldName = source.containsKey(typedAnnotation.name()) ? typedAnnotation.name() : field.getName();
                         if(!TypeChecker.isPrimitiveOrString(field.getType())) {
-                            throw new IllegalStateException(); //TODO: handle this exception properly
+                            throw new IllegalStateException("Field cannot be applied to non-primitive.");
                         }
 
                         field.setAccessible(true);
@@ -72,7 +73,7 @@ public class SearchManager {
                             Object value =  TypeChecker.castObjectToPrimitive(source.get(fieldName).toString(), field.getType());
                             field.set(result, value);
                         } catch (IllegalAccessException e) {
-                            //TODO: handle exception properly
+                            throw new RuntimeException("Unable to set a value to the field.", e);
                         }
                     }
                 }

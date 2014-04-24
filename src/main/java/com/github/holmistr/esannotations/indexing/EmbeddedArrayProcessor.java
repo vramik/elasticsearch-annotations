@@ -26,13 +26,11 @@ public class EmbeddedArrayProcessor extends Processor {
     @Override
     public void process(Field field, Annotation annotation, Object entity) {
         if(builder == null) {
-            //TODO: customize this exception text
-            throw new IllegalStateException();
+            throw new IllegalStateException("Builder cannot be null.");
         }
 
         if(indexer == null) {
-            // TODO: customize this exception text
-            throw new IllegalStateException();
+            throw new IllegalStateException("Indexer cannot be null.");
         }
 
         Object embeddedObject = null;
@@ -40,7 +38,7 @@ public class EmbeddedArrayProcessor extends Processor {
         try {
             embeddedObject = field.get(entity);
         } catch (IllegalAccessException e) {
-            //TODO: edit
+            throw new RuntimeException("Unable to get value of the field.", e);
         }
 
         if(embeddedObject == null) {
@@ -48,7 +46,7 @@ public class EmbeddedArrayProcessor extends Processor {
         }
 
         if(!embeddedObject.getClass().isArray()) {
-            throw new IllegalStateException(); //TODO: change the text
+            throw new IllegalStateException("Field is not an array.");
         }
 
         Object[] embeddedArray = (Object[]) embeddedObject;

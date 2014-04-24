@@ -28,7 +28,7 @@ public class BranchDuplicationDetectionTree<T> implements Tree<T> {
 
         if(branchId == null && parent.equals(root.getValue())) {
             if(root.getValue().equals(value)) {
-                throw new IllegalStateException(); //TODO: change the text
+                throw new IllegalStateException("Object is already present as root.");
             }
 
             root.addChild(value, branchCounter);
@@ -41,7 +41,7 @@ public class BranchDuplicationDetectionTree<T> implements Tree<T> {
         Node<T> iterationNode = root;
         while(iterationNode != null) {
             if(iterationNode.getValue().equals(value)) {
-                throw new IllegalStateException(); //TODO: change the text
+                throw new IllegalStateException("Object is already present in the current branch.");
             }
 
             if(iterationNode.hasChildOnBranch(branchId) && !parent.equals(iterationNode.getValue())) {

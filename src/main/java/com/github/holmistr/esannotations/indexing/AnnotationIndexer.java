@@ -41,7 +41,7 @@ public class AnnotationIndexer implements Indexer {
         }
 
         if(prefix == null) {
-            throw new IllegalArgumentException(); //TODO: change the text
+            throw new IllegalArgumentException("Prefix cannot be null.");
         }
 
         AnnotationDispatcher dispatcher = new AnnotationDispatcher(builder, this, depth, branchId);
