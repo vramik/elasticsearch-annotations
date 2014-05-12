@@ -61,10 +61,10 @@ public class AnnotationIndexManager {
             String documentId = getDocumentId(key);
 
             //convert is necessary because Client.setSource takes Map<String, Object>, not Map<String, String>
-            Map<String, Object> convertedMap = new HashMap<String, Object>(indexChanges.get(key));
+            Map<String, Object> jsonSource = new HashMap<String, Object>(indexChanges.get(key));
 
             IndexResponse response = client.prepareIndex(index, type, documentId)
-                    .setSource(convertedMap)
+                    .setSource(jsonSource)
                     .setRefresh(refresh)
                     .execute()
                     .actionGet();
