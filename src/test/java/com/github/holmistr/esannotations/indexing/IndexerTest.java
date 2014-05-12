@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class IndexerTest {
 
-    private Indexer indexer;
+    private AnnotationIndexer indexer;
 
     @Before
     public void init() {

@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class EmbeddedCollectionIndexationTest {
 
-    private Indexer indexer;
+    private AnnotationIndexer indexer;
 
     @Before
     public void init() {

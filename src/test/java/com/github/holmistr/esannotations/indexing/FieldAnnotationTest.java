@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FieldAnnotationTest {
 
-    private Indexer indexer;
+    private AnnotationIndexer indexer;
 
     @Before
     public void init() {
