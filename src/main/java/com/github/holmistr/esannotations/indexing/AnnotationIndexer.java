@@ -11,7 +11,7 @@ import java.util.*;
 
 
 /**
- * Implementation of Indexer. Core class. Provides building of JSON-like
+ * Core class. Provides building of JSON-like
  * index according to annotated entities.
  *
  * @author Jiří Holuša
