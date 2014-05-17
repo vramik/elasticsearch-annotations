@@ -9,6 +9,7 @@ import org.elasticsearch.search.SearchHit;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,8 +65,13 @@ public class SearchManager {
 
                     if(source.containsKey(field.getName()) || source.containsKey(typedAnnotation.name())) {
                         String fieldName = source.containsKey(typedAnnotation.name()) ? typedAnnotation.name() : field.getName();
-                        if(!TypeChecker.isPrimitiveOrString(field.getType())) {
+                        if(!TypeChecker.isPrimitiveOrStringEnumDate(field.getType())) {
                             throw new IllegalStateException("Field cannot be applied to non-primitive.");
+                        }
+
+                        //TODO: also parse these classes and fill it in the entity
+                        if(field.getType().isEnum() || field.getType().equals(Date.class)) {
+                            continue;
                         }
 
                         field.setAccessible(true);

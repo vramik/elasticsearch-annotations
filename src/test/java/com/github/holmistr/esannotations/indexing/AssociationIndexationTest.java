@@ -39,15 +39,15 @@ public class AssociationIndexationTest {
         address.setAssociatedPerson(person);
 
         indexer.index(address);
-        Map<Object, Map<String, String>> index = indexer.getCompleteIndexChanges();
+        Map<Object, Map<String, Map<String, Object>>> index = indexer.getCompleteIndexChanges();
 
         assertTrue(index.containsKey(address));
-        assertTrue(index.get(address).containsKey("street"));
-        assertEquals("modifiedStreet", index.get(address).get("street"));
+        assertTrue(index.get(address).get("source").containsKey("street"));
+        assertEquals("modifiedStreet", index.get(address).get("source").get("street"));
 
         assertTrue(index.containsKey(person));
-        assertTrue(index.get(person).containsKey("address.street"));
-        assertEquals("modifiedStreet", index.get(person).get("address.street"));
+        assertTrue(index.get(person).get("source").containsKey("address.street"));
+        assertEquals("modifiedStreet", index.get(person).get("source").get("address.street"));
     }
 
     @Test
@@ -66,17 +66,17 @@ public class AssociationIndexationTest {
         address.setAssociatedPeopleInCollection(collection);
 
         indexer.index(address);
-        Map<Object, Map<String, String>> index = indexer.getCompleteIndexChanges();
+        Map<Object, Map<String, Map<String, Object>>> index = indexer.getCompleteIndexChanges();
 
-        assertTrue(index.get(address).containsKey("street"));
-        assertEquals("modifiedStreet", index.get(address).get("street"));
+        assertTrue(index.get(address).get("source").containsKey("street"));
+        assertEquals("modifiedStreet", index.get(address).get("source").get("street"));
 
         assertTrue(index.containsKey(person));
         assertTrue(index.containsKey(person2));
-        assertTrue(index.get(person).containsKey("address.street"));
-        assertTrue(index.get(person2).containsKey("address.street"));
-        assertEquals("modifiedStreet", index.get(person).get("address.street"));
-        assertEquals("modifiedStreet", index.get(person2).get("address.street"));
+        assertTrue(index.get(person).get("source").containsKey("address.street"));
+        assertTrue(index.get(person2).get("source").containsKey("address.street"));
+        assertEquals("modifiedStreet", index.get(person).get("source").get("address.street"));
+        assertEquals("modifiedStreet", index.get(person2).get("source").get("address.street"));
     }
 
     @Test
@@ -95,17 +95,17 @@ public class AssociationIndexationTest {
         address.setAssociatedPeopleInMap(map);
 
         indexer.index(address);
-        Map<Object, Map<String, String>> index = indexer.getCompleteIndexChanges();
+        Map<Object, Map<String, Map<String, Object>>> index = indexer.getCompleteIndexChanges();
 
-        assertTrue(index.get(address).containsKey("street"));
-        assertEquals("modifiedStreet", index.get(address).get("street"));
+        assertTrue(index.get(address).get("source").containsKey("street"));
+        assertEquals("modifiedStreet", index.get(address).get("source").get("street"));
 
         assertTrue(index.containsKey(person));
         assertTrue(index.containsKey(person2));
-        assertTrue(index.get(person).containsKey("address.street"));
-        assertTrue(index.get(person2).containsKey("address.street"));
-        assertEquals("modifiedStreet", index.get(person).get("address.street"));
-        assertEquals("modifiedStreet", index.get(person2).get("address.street"));
+        assertTrue(index.get(person).get("source").containsKey("address.street"));
+        assertTrue(index.get(person2).get("source").containsKey("address.street"));
+        assertEquals("modifiedStreet", index.get(person).get("source").get("address.street"));
+        assertEquals("modifiedStreet", index.get(person2).get("source").get("address.street"));
     }
 
     @Test
@@ -124,17 +124,17 @@ public class AssociationIndexationTest {
         address.setAssociatedPeopleInArray(array);
 
         indexer.index(address);
-        Map<Object, Map<String, String>> index = indexer.getCompleteIndexChanges();
+        Map<Object, Map<String, Map<String, Object>>> index = indexer.getCompleteIndexChanges();
 
-        assertTrue(index.get(address).containsKey("street"));
-        assertEquals("modifiedStreet", index.get(address).get("street"));
+        assertTrue(index.get(address).get("source").containsKey("street"));
+        assertEquals("modifiedStreet", index.get(address).get("source").get("street"));
 
         assertTrue(index.containsKey(person));
         assertTrue(index.containsKey(person2));
-        assertTrue(index.get(person).containsKey("address.street"));
-        assertTrue(index.get(person2).containsKey("address.street"));
-        assertEquals("modifiedStreet", index.get(person).get("address.street"));
-        assertEquals("modifiedStreet", index.get(person2).get("address.street"));
+        assertTrue(index.get(person).get("source").containsKey("address.street"));
+        assertTrue(index.get(person2).get("source").containsKey("address.street"));
+        assertEquals("modifiedStreet", index.get(person).get("source").get("address.street"));
+        assertEquals("modifiedStreet", index.get(person2).get("source").get("address.street"));
     }
 
 

@@ -53,15 +53,23 @@ public class AnnotationIndexManager {
 
         AnnotationIndexer indexer = new AnnotationIndexer();
         indexer.index(entity);
-        Map<Object, Map<String, String>> indexChanges = indexer.getCompleteIndexChanges();
+        Map<Object, Map<String, Map<String, Object>>> indexChanges = indexer.getCompleteIndexChanges();
 
         for(Object key: indexChanges.keySet()) {
             String index = getEntityIndex(key);
             String type = getEntityType(key);
             String documentId = getDocumentId(key);
 
+            if(!client.admin().indices().prepareExists(index).execute().actionGet().isExists()) {
+                client.admin().indices()
+                        .prepareCreate(index)
+                        .setSettings(indexChanges.get(key).get("settings"))
+                        .addMapping(type, indexChanges.get(key).get("mapping"))
+                        .execute().actionGet();
+            }
+
             //convert is necessary because Client.setSource takes Map<String, Object>, not Map<String, String>
-            Map<String, Object> jsonSource = new HashMap<String, Object>(indexChanges.get(key));
+            Map<String, Object> jsonSource = new HashMap<String, Object>(indexChanges.get(key).get("source"));
 
             IndexResponse response = client.prepareIndex(index, type, documentId)
                     .setSource(jsonSource)

@@ -1,5 +1,6 @@
 package com.github.holmistr.esannotations.commons;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,13 +17,17 @@ public class TypeChecker {
         return WRAPPER_TYPES.contains(clazz);
     }
 
-    public static boolean isPrimitiveOrString(Class<?> clazz) {
-        return isWrapperType(clazz) || clazz.isPrimitive() || clazz.equals(String.class);
+    public static boolean isPrimitiveOrStringEnumDate(Class<?> clazz) {
+        return isWrapperType(clazz)
+                || clazz.isPrimitive()
+                || clazz.equals(String.class)
+                || clazz.isEnum()
+                || clazz.equals(Date.class);
     }
 
     public static <T> Object castObjectToPrimitive(String source, Class<T> clazz) {
-        if(!isPrimitiveOrString(clazz)) {
-            throw new IllegalArgumentException("Object is not instance of a primitive or String.");
+        if(!isPrimitiveOrStringEnumDate(clazz)) {
+            throw new IllegalArgumentException("Object is not instance of a primitive or String or Enum.");
         }
 
         if(clazz.equals(Integer.class) || clazz.equals(int.class)) {

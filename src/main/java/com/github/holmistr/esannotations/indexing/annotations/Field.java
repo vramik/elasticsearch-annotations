@@ -20,4 +20,10 @@ public @interface Field {
      */
     String name() default "";
 
+    /**
+     * //TODO: document this
+     * @return
+     */
+    Analyze analyze() default Analyze.YES;
+
 }

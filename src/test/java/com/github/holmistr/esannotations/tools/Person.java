@@ -1,9 +1,6 @@
 package com.github.holmistr.esannotations.tools;
 
-import com.github.holmistr.esannotations.indexing.annotations.DocumentId;
-import com.github.holmistr.esannotations.indexing.annotations.Field;
-import com.github.holmistr.esannotations.indexing.annotations.IndexEmbedded;
-import com.github.holmistr.esannotations.indexing.annotations.Indexed;
+import com.github.holmistr.esannotations.indexing.annotations.*;
 
 import java.util.Collection;
 import java.util.Map;

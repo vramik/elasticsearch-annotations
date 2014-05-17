@@ -53,7 +53,7 @@ public class AnnotationDispatcher {
         }
 
         if(annotation instanceof Field) {
-            if(!TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
+            if(!TypeChecker.isPrimitiveOrStringEnumDate(embeddedObject.getClass())) {
                 throw new IllegalArgumentException("Field annotation can be applied only to primitives or string.");
             }
 
@@ -61,7 +61,7 @@ public class AnnotationDispatcher {
         }
 
         if(annotation instanceof IndexEmbedded) {
-            if(TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
+            if(TypeChecker.isPrimitiveOrStringEnumDate(embeddedObject.getClass())) {
                 throw new IllegalArgumentException("IndexEmbedded annotation cannot be applied to primitives.");
             }
 
@@ -81,7 +81,7 @@ public class AnnotationDispatcher {
         }
 
         if(processContainedIn && annotation instanceof ContainedIn) {
-            if(TypeChecker.isPrimitiveOrString(embeddedObject.getClass())) {
+            if(TypeChecker.isPrimitiveOrStringEnumDate(embeddedObject.getClass())) {
                 throw new IllegalArgumentException("ContainedIn annotation cannot be applied to primitives.");
             }
 

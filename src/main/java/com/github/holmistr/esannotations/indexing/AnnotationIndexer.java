@@ -78,6 +78,23 @@ public class AnnotationIndexer {
     }
 
     /**
+     * TODO document this
+     * @return
+     */
+    public Map<String, Object> getMappingOfSingleEntityAsMap() {
+        return Collections.unmodifiableMap(builder.getMappings());
+    }
+
+    /**
+     * TODO document this
+     * @return
+     */
+    public Map<String, Object> getSettingsOfSingleEntityAsMap() {
+        return Collections.unmodifiableMap(builder.getSettings());
+    }
+
+    /**
+     * TODO edit this docs
      * Return the indexes of all entities that was affected by indexation
      * of entity and therefore their index has to be rebuilt, for example because of
      * existence of relationship or being embedded.
@@ -85,16 +102,26 @@ public class AnnotationIndexer {
      * @return Map of all entities and their new indexes. Keys are the entities, values
      * are indexes of those entities.
      */
-    public Map<Object, Map<String, String>> getCompleteIndexChanges() {
-        Map<Object, Map<String, String>> returnValue = new HashMap<Object, Map<String, String>>();
+    public Map<Object, Map<String, Map<String, Object>>> getCompleteIndexChanges() {
+        Map<Object, Map<String, Map<String, Object>>> returnValue = new HashMap<Object, Map<String, Map<String, Object>>>();
         for(Object object: markedModified) {
             AnnotationIndexer indexer = new AnnotationIndexer();
             indexer.index(object, "", null, null, false);
 
-            returnValue.put(object, indexer.getIndexOfSingleEntityAsMap());
+            Map<String, Map<String, Object>> returnItem = new HashMap<String, Map<String, Object>>();
+            returnItem.put("source", new HashMap<String, Object>(indexer.getIndexOfSingleEntityAsMap()));
+            returnItem.put("mapping", indexer.getMappingOfSingleEntityAsMap());
+            returnItem.put("settings", indexer.getSettingsOfSingleEntityAsMap());
+
+
+            returnValue.put(object, returnItem);
         }
 
-        returnValue.put(indexedEntity, builder.getIndexAsMap());
+        Map<String, Map<String, Object>> returnItem = new HashMap<String, Map<String, Object>>();
+        returnItem.put("source", new HashMap<String, Object>(builder.getIndexAsMap()));
+        returnItem.put("mapping", builder.getMappings());
+        returnItem.put("settings", builder.getSettings());
+        returnValue.put(indexedEntity, returnItem);
 
         return Collections.unmodifiableMap(returnValue);
     }
