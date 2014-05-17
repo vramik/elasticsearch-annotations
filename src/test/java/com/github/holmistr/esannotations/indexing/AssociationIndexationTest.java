@@ -136,6 +136,4 @@ public class AssociationIndexationTest {
         assertEquals("modifiedStreet", index.get(person).get("source").get("address.street"));
         assertEquals("modifiedStreet", index.get(person2).get("source").get("address.street"));
     }
-
-
 }
