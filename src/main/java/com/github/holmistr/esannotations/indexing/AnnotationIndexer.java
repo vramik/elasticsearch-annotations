@@ -78,7 +78,8 @@ public class AnnotationIndexer {
     }
 
     /**
-     * TODO document this
+     * Returns mapping of and single entity index.
+     *
      * @return
      */
     public Map<String, Object> getMappingOfSingleEntityAsMap() {
@@ -86,7 +87,8 @@ public class AnnotationIndexer {
     }
 
     /**
-     * TODO document this
+     * Returns settings of an single entity index.
+     *
      * @return
      */
     public Map<String, Object> getSettingsOfSingleEntityAsMap() {
@@ -94,13 +96,13 @@ public class AnnotationIndexer {
     }
 
     /**
-     * TODO edit this docs
      * Return the indexes of all entities that was affected by indexation
      * of entity and therefore their index has to be rebuilt, for example because of
      * existence of relationship or being embedded.
      *
-     * @return Map of all entities and their new indexes. Keys are the entities, values
-     * are indexes of those entities.
+     * @return Map of all entities and their new indexes, mappings and settings. Keys are the entities, value
+     * is map with following keys: source->new index of entity, settings->new settings for entity's index,
+     * mapping->new mapping for entity's index
      */
     public Map<Object, Map<String, Map<String, Object>>> getCompleteIndexChanges() {
         Map<Object, Map<String, Map<String, Object>>> returnValue = new HashMap<Object, Map<String, Map<String, Object>>>();

@@ -18,16 +18,16 @@ public interface Builder {
     public void put(String key, String value);
 
     /**
-     * TODO: document this
+     * Put mapping for a field.
      *
      * @param field
-     * @param property
-     * @param value
+     * @param property mapping property
+     * @param value mapping value
      */
     public void putMapping(String field, String property, String value);
 
     /**
-     * TODO: document this
+     * Puts property to an analyzer.
      *
      * @param analyzerName
      * @param property
@@ -43,13 +43,14 @@ public interface Builder {
     public Map<String, String> getIndexAsMap();
 
     /**
-     * TODO document this
+     * Returns built mappings.
      * @return
      */
     public Map<String, Object> getMappings();
 
     /**
-     * TODO document this
+     * Returns built settings.
+     *
      * @return
      */
     public Map<String, Object> getSettings();

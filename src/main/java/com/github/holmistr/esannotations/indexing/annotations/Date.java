@@ -3,7 +3,7 @@ package com.github.holmistr.esannotations.indexing.annotations;
 import java.lang.annotation.*;
 
 /**
- * TODO: document this
+ * Marks date attribute and allows to specify its format.
  *
  * @author Jiří Holuša
  */
@@ -12,6 +12,11 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 public @interface Date {
 
+    /**
+     * Specify date format according to Elasticsearch date format.
+     *
+     * @return
+     */
     String format() default "YYYY-MM-dd";
 
 }
