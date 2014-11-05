@@ -1,6 +1,6 @@
 package com.github.holmistr.esannotations.commons;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,8 @@ public class TypeChecker {
                 || clazz.isPrimitive()
                 || clazz.equals(String.class)
                 || clazz.isEnum()
-                || clazz.equals(Date.class);
+                || clazz.equals(Date.class)
+                || clazz.equals(java.sql.Date.class);
     }
 
     public static <T> Object castObjectToPrimitive(String source, Class<T> clazz) {
